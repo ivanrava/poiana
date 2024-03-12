@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm26oppoddfro"]
+
+[ext_resource type="PackedScene" uid="uid://c8shxai06bcgt" path="res://scenes/cards/Deck.tscn" id="1_imupy"]
+[ext_resource type="Script" path="res://scenes/screens/Table.cs" id="1_xnrsq"]
+[ext_resource type="PackedScene" uid="uid://dtgroo7dku0or" path="res://scenes/cards/Hand.tscn" id="2_5f83q"]
+
+[node name="Table" type="Node"]
+script = ExtResource("1_xnrsq")
+metadata/_edit_horizontal_guides_ = [648.0]
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.227451, 0.368627, 0.227451, 1)
+
+[node name="Deck" parent="." instance=ExtResource("1_imupy")]
+position = Vector2(1027, 324)
+rotation = 1.5708
+
+[node name="PlayerHand" parent="." instance=ExtResource("2_5f83q")]
+position = Vector2(405, 787)
+
+[node name="OpponentHand" parent="." instance=ExtResource("2_5f83q")]
+position = Vector2(405, -263)
+rotation = 3.14159

@@ -15,6 +15,11 @@ public partial class Deck : Node2D
         GetNode<Card>("Back").SetBack();
         GetNode<Card>("Briscola").SetCard(_extractor.Extract());
     }
+
+    public new CardData Draw()
+    {
+        return _extractor.Extract();
+    }
 }
 
 internal interface ICardExtractor

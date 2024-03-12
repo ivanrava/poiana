@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtgroo7dku0or"]
+
+[ext_resource type="PackedScene" uid="uid://4f4shapgkimt" path="res://scenes/cards/Card.tscn" id="1_2s7x6"]
+[ext_resource type="Script" path="res://scenes/cards/Hand.cs" id="1_lx485"]
+
+[node name="Hand" type="Node2D"]
+script = ExtResource("1_lx485")
+
+[node name="1" parent="." instance=ExtResource("1_2s7x6")]
+position = Vector2(-140, -157)
+rotation = -0.174533
+
+[node name="2" parent="." instance=ExtResource("1_2s7x6")]
+position = Vector2(0, -169)
+
+[node name="3" parent="." instance=ExtResource("1_2s7x6")]
+position = Vector2(140, -158)
+rotation = 0.174533
