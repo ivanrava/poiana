@@ -2,16 +2,8 @@ using Godot;
 
 namespace PoIAna.scenes;
 
-public partial class Card : Node2D
+public partial class Card : AnimatedSprite2D
 {
-    private AnimatedSprite2D _sprite;
-    
-    public override void _Ready()
-    {
-        base._Ready();
-        _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-    }
-
     private int GetCardFrameIndex(Suit suit, Score score)
     {
         const int maxSuitCards = 13;
@@ -20,12 +12,12 @@ public partial class Card : Node2D
 
     public void SetCard(Suit suit, Score score)
     {
-        _sprite.Frame = GetCardFrameIndex(suit, score);
+        Frame = GetCardFrameIndex(suit, score);
     }
 
     public void SetBack()
     {
-        _sprite.Frame = GetBackFrameIndex();
+        Frame = GetBackFrameIndex();
     }
 
     private int GetBackFrameIndex()
