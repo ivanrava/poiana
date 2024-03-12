@@ -10,9 +10,9 @@ public partial class Card : AnimatedSprite2D
         return (int) suit * maxSuitCards + (int) score;
     }
 
-    public void SetCard(Suit suit, Score score)
+    public void SetCard(CardData cardData)
     {
-        Frame = GetCardFrameIndex(suit, score);
+        Frame = GetCardFrameIndex(cardData.Suit, cardData.Score);
     }
 
     public void SetBack()
