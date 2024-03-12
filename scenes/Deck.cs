@@ -34,7 +34,10 @@ internal class DeckBriscola : ICardExtractor
         {
             foreach (Score score in Enum.GetValues(typeof(Score)))
             {
-                _cards.Add(new CardData(suit, score));
+                if (score != Score.Eight && score != Score.Nine && score != Score.Ten)
+                {
+                    _cards.Add(new CardData(suit, score));
+                }
             }
         }
         _cards.Shuffle();
