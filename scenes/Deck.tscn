@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8shxai06bcgt"]
+
+[ext_resource type="PackedScene" uid="uid://4f4shapgkimt" path="res://scenes/Card.tscn" id="1_gour4"]
+[ext_resource type="Script" path="res://scenes/Deck.cs" id="1_ssog7"]
+
+[node name="Deck" type="Node2D"]
+rotation = 4.71239
+script = ExtResource("1_ssog7")
+
+[node name="Briscola" parent="." instance=ExtResource("1_gour4")]
+position = Vector2(0, 100)
+
+[node name="Back" parent="." instance=ExtResource("1_gour4")]
+rotation = 1.5708

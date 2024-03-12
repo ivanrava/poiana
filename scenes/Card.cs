@@ -17,9 +17,25 @@ public partial class Card : Node2D
         const int maxSuitCards = 13;
         return (int) suit * maxSuitCards + (int) score;
     }
+
+    public void SetCard(Suit suit, Score score)
+    {
+        _sprite.Frame = GetCardFrameIndex(suit, score);
+    }
+
+    public void SetBack()
+    {
+        _sprite.Frame = GetBackFrameIndex();
+    }
+
+    private int GetBackFrameIndex()
+    {
+        const int maxCards = 52;
+        return maxCards;
+    }
 }
 
-internal enum Score
+public enum Score
 {
     Ace,
     Two,
@@ -36,7 +52,7 @@ internal enum Score
     King,
 }
 
-internal enum Suit
+public enum Suit
 {
     Coins,
     Batons,

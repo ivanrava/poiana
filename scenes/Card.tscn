@@ -408,7 +408,3 @@ script = ExtResource("1_w53pw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i1yl5")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
