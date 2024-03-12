@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8shxai06bcgt"]
 
-[ext_resource type="PackedScene" uid="uid://4f4shapgkimt" path="res://scenes/Card.tscn" id="1_gour4"]
-[ext_resource type="Script" path="res://scenes/Deck.cs" id="1_ssog7"]
+[ext_resource type="PackedScene" uid="uid://4f4shapgkimt" path="res://scenes/cards/Card.tscn" id="1_gour4"]
+[ext_resource type="Script" path="res://scenes/cards/Deck.cs" id="1_ssog7"]
 
 [node name="Deck" type="Node2D"]
 rotation = 4.71239

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://4f4shapgkimt"]
 
 [ext_resource type="SpriteFrames" uid="uid://db1mu17k4t028" path="res://assets/styles/bresciane.tres" id="1_s7jeu"]
-[ext_resource type="Script" path="res://scenes/Card.cs" id="1_w53pw"]
+[ext_resource type="Script" path="res://scenes/cards/Card.cs" id="1_w53pw"]
 
 [node name="Card" type="AnimatedSprite2D"]
 sprite_frames = ExtResource("1_s7jeu")

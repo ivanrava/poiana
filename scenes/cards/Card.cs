@@ -1,6 +1,6 @@
 using Godot;
 
-namespace PoIAna.scenes;
+namespace PoIAna.scenes.cards;
 
 public partial class Card : AnimatedSprite2D
 {

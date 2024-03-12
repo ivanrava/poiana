@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using PoIAna.scenes;
+
+namespace PoIAna.scenes.cards;
 
 public partial class Deck : Node2D
 {
