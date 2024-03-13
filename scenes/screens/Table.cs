@@ -1,6 +1,8 @@
 using Godot;
 using PoIAna.scenes.cards;
 
+namespace PoIAna.scenes.screens;
+
 public partial class Table : Node
 {
     private Hand _playerHand, _opponentHand;

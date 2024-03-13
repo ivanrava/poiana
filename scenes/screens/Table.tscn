@@ -6,7 +6,7 @@
 
 [node name="Table" type="Node"]
 script = ExtResource("1_xnrsq")
-metadata/_edit_horizontal_guides_ = [648.0]
+metadata/_edit_horizontal_guides_ = [722.0]
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -17,12 +17,12 @@ grow_vertical = 2
 color = Color(0.227451, 0.368627, 0.227451, 1)
 
 [node name="Deck" parent="." instance=ExtResource("1_imupy")]
-position = Vector2(1027, 324)
+position = Vector2(1127, 360)
 rotation = 1.5708
 
 [node name="PlayerHand" parent="." instance=ExtResource("2_5f83q")]
 position = Vector2(405, 787)
 
 [node name="OpponentHand" parent="." instance=ExtResource("2_5f83q")]
-position = Vector2(405, -263)
+position = Vector2(405, -208)
 rotation = 3.14159

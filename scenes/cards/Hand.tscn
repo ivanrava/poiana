@@ -4,15 +4,16 @@
 [ext_resource type="Script" path="res://scenes/cards/Hand.cs" id="1_lx485"]
 
 [node name="Hand" type="Node2D"]
+position = Vector2(0, 37)
 script = ExtResource("1_lx485")
 
 [node name="1" parent="." instance=ExtResource("1_2s7x6")]
-position = Vector2(-140, -157)
+position = Vector2(-107, -159)
 rotation = -0.174533
 
 [node name="2" parent="." instance=ExtResource("1_2s7x6")]
 position = Vector2(0, -169)
 
 [node name="3" parent="." instance=ExtResource("1_2s7x6")]
-position = Vector2(140, -158)
+position = Vector2(111, -159)
 rotation = 0.174533
