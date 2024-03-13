@@ -4,6 +4,24 @@ namespace PoIAna.scenes.cards;
 
 public partial class Card : AnimatedSprite2D
 {
+    [Signal]
+    public delegate void CardClickedEventHandler();
+    
+    public override void _Ready()
+    {
+        base._Ready();
+        var mouseDetector = GetNode<Area2D>("MouseDetector");
+        mouseDetector.InputEvent += HandleInputEvent;
+    }
+
+    private void HandleInputEvent(Node node, InputEvent inputEvent, long idx)
+    {
+        if (inputEvent is InputEventMouseButton && inputEvent.IsReleased())
+        {
+            EmitSignal(SignalName.CardClicked);
+        }
+    }
+
     private int GetCardFrameIndex(Suit suit, Score score)
     {
         const int maxSuitCards = 13;

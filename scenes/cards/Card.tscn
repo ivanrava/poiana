@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://4f4shapgkimt"]
+[gd_scene load_steps=4 format=3 uid="uid://4f4shapgkimt"]
 
 [ext_resource type="SpriteFrames" uid="uid://db1mu17k4t028" path="res://assets/styles/bresciane.tres" id="1_s7jeu"]
 [ext_resource type="Script" path="res://scenes/cards/Card.cs" id="1_w53pw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7weep"]
+size = Vector2(165, 332.5)
 
 [node name="Card" type="AnimatedSprite2D"]
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("1_s7jeu")
 script = ExtResource("1_w53pw")
+
+[node name="MouseDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetector"]
+position = Vector2(-1.19209e-07, -1.25)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_7weep")
