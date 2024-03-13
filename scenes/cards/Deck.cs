@@ -6,36 +6,46 @@ namespace PoIAna.scenes.cards;
 
 public partial class Deck : Node2D
 {
-    private ICardExtractor _extractor;
+    private ICardExtractor _deck;
+    private Label _remainingCards;
     
     public override void _Ready()
     {
         base._Ready();
-        _extractor = new DeckBriscola();
+        _deck = new DeckBriscola();
         GetNode<Card>("Back").SetBack();
-        GetNode<Card>("Briscola").SetCard(_extractor.Extract());
+        GetNode<Card>("Briscola").SetCard(_deck.Extract());
+        _remainingCards = GetNode<Label>("RemainingCards");
+        UpdateRemainingCards();
+    }
+
+    private void UpdateRemainingCards()
+    {
+        _remainingCards.Text = (_deck.Count() + 1).ToString();
     }
 
     public new CardData Draw()
     {
-        return _extractor.Extract();
+        CardData extracted = _deck.Extract();
+        UpdateRemainingCards();
+        return extracted;
     }
 }
 
 internal interface ICardExtractor
 {
     CardData Extract();
+    int Count();
 }
 
 public record CardData(Suit Suit, Score Score);
 
 internal class DeckBriscola : ICardExtractor
 {
-    private readonly List<CardData> _cards;
+    private readonly List<CardData> _cards = new();
 
     public DeckBriscola()
     {
-        _cards = new List<CardData>();
         foreach (Suit suit in Enum.GetValues(typeof(Suit)))
         {
             foreach (Score score in Enum.GetValues(typeof(Score)))
@@ -54,6 +64,11 @@ internal class DeckBriscola : ICardExtractor
         CardData card = _cards[0];
         _cards.RemoveAt(0);
         return card;
+    }
+
+    public int Count()
+    {
+        return _cards.Count;
     }
 }
 

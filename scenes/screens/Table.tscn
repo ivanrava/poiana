@@ -19,7 +19,6 @@ color = Color(0.227451, 0.368627, 0.227451, 1)
 
 [node name="Deck" parent="." instance=ExtResource("1_imupy")]
 position = Vector2(1127, 360)
-rotation = 1.5708
 
 [node name="PlayerHand" parent="." instance=ExtResource("2_5f83q")]
 position = Vector2(405, 787)
