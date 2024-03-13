@@ -14,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.227451, 0.368627, 0.227451, 1)
 
 [node name="Deck" parent="." instance=ExtResource("1_imupy")]
@@ -26,3 +27,9 @@ position = Vector2(405, 787)
 [node name="OpponentHand" parent="." instance=ExtResource("2_5f83q")]
 position = Vector2(405, -208)
 rotation = 3.14159
+
+[node name="OpponentCardPosition" type="Marker2D" parent="."]
+position = Vector2(342, 277)
+
+[node name="PlayerCardPosition" type="Marker2D" parent="."]
+position = Vector2(469, 314)

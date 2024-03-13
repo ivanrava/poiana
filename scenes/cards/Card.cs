@@ -5,7 +5,7 @@ namespace PoIAna.scenes.cards;
 public partial class Card : AnimatedSprite2D
 {
     [Signal]
-    public delegate void CardClickedEventHandler();
+    public delegate void CardClickedEventHandler(Card self);
     
     public override void _Ready()
     {
@@ -18,7 +18,7 @@ public partial class Card : AnimatedSprite2D
     {
         if (inputEvent is InputEventMouseButton && inputEvent.IsReleased())
         {
-            EmitSignal(SignalName.CardClicked);
+            EmitSignal(SignalName.CardClicked, this);
         }
     }
 
