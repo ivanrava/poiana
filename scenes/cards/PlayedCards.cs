@@ -41,6 +41,7 @@ public partial class PlayedCards : Node2D
             child.QueueFree();
         }
 
+        _playedCards.Clear();
         _lastCard = null;
     }
 
@@ -85,36 +86,36 @@ public class BriscolaScore : IScoreStrategy
 
 public class BriscolaWinStrategy : IWinStrategy
 {
+    private BriscolaScore _briscolaScore = new();
+    
     public Player Winner(List<KeyValuePair<Player, CardData>> playedCards, GameGlobals gameGlobals)
     {
-        BriscolaScore scoreStrategy = new();
-        var first = playedCards.First();
-        var second = playedCards.Last();
-        var firstCard = first.Value;
-        var secondCard = second.Value;
+        var (firstPlayer, firstCard) = playedCards.First();
+        var (secondPlayer, secondCard) = playedCards.Last();
 
         if (firstCard.Suit == gameGlobals.Briscola)
         {
-            if (secondCard.Suit == gameGlobals.Briscola)
-            {
-                return scoreStrategy.Score(secondCard) > scoreStrategy.Score(firstCard) ? second.Key : first.Key;
-            }
-        }
-        else if (secondCard.Suit == gameGlobals.Briscola)
-        {
-            return second.Key;
-        }
-        
-        if (firstCard.Suit != secondCard.Suit)
-        {
-            return first.Key;
+            return secondCard.Suit == gameGlobals.Briscola ? WinnerSameSuit(playedCards) : firstPlayer;
         }
 
-        if (scoreStrategy.Score(secondCard) + scoreStrategy.Score(firstCard) == 0)
+        if (secondCard.Suit == gameGlobals.Briscola)
         {
-            return firstCard.Score > secondCard.Score ? first.Key : second.Key;
+            return secondPlayer;
         }
 
-        return scoreStrategy.Score(secondCard) > scoreStrategy.Score(firstCard) ? second.Key : first.Key;
+        return firstCard.Suit != secondCard.Suit ? firstPlayer : WinnerSameSuit(playedCards);
+    }
+
+    private Player WinnerSameSuit(List<KeyValuePair<Player, CardData>> playedCards)
+    {
+        var (firstPlayer, firstCard) = playedCards.First();
+        var (secondPlayer, secondCard) = playedCards.Last();
+
+        if (_briscolaScore.Score(secondCard) + _briscolaScore.Score(firstCard) == 0)
+        {
+            return firstCard.Score > secondCard.Score ? firstPlayer : secondPlayer;
+        }
+
+        return _briscolaScore.Score(secondCard) > _briscolaScore.Score(firstCard) ? secondPlayer : firstPlayer;
     }
 }

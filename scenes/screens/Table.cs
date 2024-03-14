@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using PoIAna.scenes.ai;
 using PoIAna.scenes.cards;
@@ -13,10 +14,9 @@ public partial class Table : Node
     private Area2D _clickOverlay;
     private PlayedCards _playedCards;
 
-    private int _playerScore = 0, _opponentScore = 0;
-    private const int PlayerIndex = 0, OpponentIndex = 1;
-    private static readonly Player Player = new Player(PlayerIndex);
-    private static readonly Player Opponent = new Player(OpponentIndex);
+    private static readonly Player Player = new(0);
+    private static readonly Player Opponent = new(1);
+    private readonly Dictionary<Player, Label> _scores = new();
 
     public override void _Ready()
     {
@@ -24,6 +24,9 @@ public partial class Table : Node
         
         _opponent = new RandomOpponent();
         _isPlayerTurn = true;
+        
+        _scores.Add(Player, GetNode<Label>("PlayerScore"));
+        _scores.Add(Opponent, GetNode<Label>("OpponentScore"));
         
         _playerHand = GetNode<Hand>("PlayerHand");
         _opponentHand = GetNode<Hand>("OpponentHand");
@@ -43,8 +46,7 @@ public partial class Table : Node
     {
         if (@event is InputEventMouseButton && @event.IsReleased())
         {
-            GD.Print(_playedCards.Score());
-            GD.Print(_playedCards.Winner());
+            _scores[_playedCards.Winner()].Text = (int.Parse(_scores[_playedCards.Winner()].Text) + _playedCards.Score()).ToString();
             
             _playedCards.Clean();
             _isPlayerTurn = true;
