@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using PoIAna.scenes.autoload;
 
 namespace PoIAna.scenes.cards;
 
@@ -50,7 +51,7 @@ public partial class PlayedCards : Node2D
 
     public Player Winner()
     {
-        return new BriscolaWinStrategy().Winner(_playedCards);
+        return new BriscolaWinStrategy().Winner(_playedCards, GetNode<GameGlobals>("/root/GameGlobals"));
     }
 }
 
@@ -58,7 +59,7 @@ public record Player(int Index);
 
 public interface IWinStrategy
 {
-    Player Winner(List<KeyValuePair<Player, CardData>> playedCards);
+    Player Winner(List<KeyValuePair<Player, CardData>> playedCards, GameGlobals gameGlobals);
 }
 
 public interface IScoreStrategy
@@ -84,7 +85,7 @@ public class BriscolaScore : IScoreStrategy
 
 public class BriscolaWinStrategy : IWinStrategy
 {
-    public Player Winner(List<KeyValuePair<Player, CardData>> playedCards)
+    public Player Winner(List<KeyValuePair<Player, CardData>> playedCards, GameGlobals gameGlobals)
     {
         BriscolaScore scoreStrategy = new();
         var first = playedCards.First();
@@ -92,12 +93,28 @@ public class BriscolaWinStrategy : IWinStrategy
         var firstCard = first.Value;
         var secondCard = second.Value;
 
-        // TODO: add briscola win condition
+        if (firstCard.Suit == gameGlobals.Briscola)
+        {
+            if (secondCard.Suit == gameGlobals.Briscola)
+            {
+                return scoreStrategy.Score(secondCard) > scoreStrategy.Score(firstCard) ? second.Key : first.Key;
+            }
+        }
+        else if (secondCard.Suit == gameGlobals.Briscola)
+        {
+            return second.Key;
+        }
+        
         if (firstCard.Suit != secondCard.Suit)
         {
             return first.Key;
         }
 
-        return scoreStrategy.Score(firstCard) > scoreStrategy.Score(secondCard) ? first.Key : second.Key;
+        if (scoreStrategy.Score(secondCard) + scoreStrategy.Score(firstCard) == 0)
+        {
+            return firstCard.Score > secondCard.Score ? first.Key : second.Key;
+        }
+
+        return scoreStrategy.Score(secondCard) > scoreStrategy.Score(firstCard) ? second.Key : first.Key;
     }
 }

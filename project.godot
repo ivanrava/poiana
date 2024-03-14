@@ -14,6 +14,10 @@ config/name="PoIAna"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameGlobals="*res://scenes/autoload/GameGlobals.cs"
+
 [display]
 
 window/size/viewport_width=1280

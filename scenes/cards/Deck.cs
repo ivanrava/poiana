@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using PoIAna.scenes.autoload;
 
 namespace PoIAna.scenes.cards;
 
@@ -14,7 +15,9 @@ public partial class Deck : Node2D
         base._Ready();
         _deck = new DeckBriscola();
         GetNode<Card>("Back").SetBack();
-        GetNode<Card>("Briscola").SetCard(_deck.Extract());
+        var briscola = _deck.Extract();
+        GetNode<Card>("Briscola").SetCard(briscola);
+        GetNode<GameGlobals>("/root/GameGlobals").Briscola = briscola.Suit;
         _remainingCards = GetNode<Label>("RemainingCards");
         UpdateRemainingCards();
     }
