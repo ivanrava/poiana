@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm26oppoddfro"]
+[gd_scene load_steps=7 format=3 uid="uid://bm26oppoddfro"]
 
 [ext_resource type="PackedScene" uid="uid://c8shxai06bcgt" path="res://scenes/cards/Deck.tscn" id="1_imupy"]
 [ext_resource type="Script" path="res://scenes/screens/Table.cs" id="1_xnrsq"]
 [ext_resource type="PackedScene" uid="uid://dtgroo7dku0or" path="res://scenes/cards/Hand.tscn" id="2_5f83q"]
+[ext_resource type="PackedScene" uid="uid://dqrx8sn1jirjv" path="res://scenes/cards/PlayedCards.tscn" id="4_tvi8v"]
+[ext_resource type="PackedScene" uid="uid://btfatx3csqopq" path="res://scenes/ui/Score.tscn" id="4_yem0h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q4fh"]
+size = Vector2(1280, 719)
 
 [node name="Table" type="Node"]
 script = ExtResource("1_xnrsq")
@@ -27,8 +32,31 @@ position = Vector2(405, 787)
 position = Vector2(405, -208)
 rotation = 3.14159
 
-[node name="OpponentCardPosition" type="Marker2D" parent="."]
-position = Vector2(342, 277)
+[node name="PlayedCards" parent="." instance=ExtResource("4_tvi8v")]
+position = Vector2(414, 278)
 
-[node name="PlayerCardPosition" type="Marker2D" parent="."]
-position = Vector2(469, 314)
+[node name="OpponentScore" parent="." instance=ExtResource("4_yem0h")]
+
+[node name="PlayerScore" parent="." instance=ExtResource("4_yem0h")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 0.0
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="OlderClickOverlay" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="ClickOverlay" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickOverlay"]
+position = Vector2(639, 360.5)
+shape = SubResource("RectangleShape2D_1q4fh")

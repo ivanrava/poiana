@@ -6,6 +6,8 @@ public partial class Card : AnimatedSprite2D
 {
     [Signal]
     public delegate void CardClickedEventHandler(Card self);
+
+    public CardData CardData;
     
     public override void _Ready()
     {
@@ -31,6 +33,7 @@ public partial class Card : AnimatedSprite2D
     public void SetCard(CardData cardData)
     {
         Frame = GetCardFrameIndex(cardData.Suit, cardData.Score);
+        CardData = cardData;
     }
 
     public void SetBack()
