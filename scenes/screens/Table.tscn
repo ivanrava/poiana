@@ -26,22 +26,27 @@ color = Color(0.227451, 0.368627, 0.227451, 1)
 position = Vector2(1127, 360)
 
 [node name="PlayerHand" parent="." instance=ExtResource("2_5f83q")]
-position = Vector2(405, 787)
+position = Vector2(405, 801)
 
 [node name="OpponentHand" parent="." instance=ExtResource("2_5f83q")]
-position = Vector2(405, -208)
+position = Vector2(405, -190)
 rotation = 3.14159
 
 [node name="PlayedCards" parent="." instance=ExtResource("4_tvi8v")]
-position = Vector2(414, 278)
+position = Vector2(414, 304)
 
 [node name="OpponentScore" parent="." instance=ExtResource("4_yem0h")]
+offset_left = 11.0
+offset_right = 51.0
+offset_bottom = 67.0
 
 [node name="PlayerScore" parent="." instance=ExtResource("4_yem0h")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
+offset_left = 11.0
+offset_top = -67.0
+offset_right = 51.0
 offset_bottom = 0.0
 grow_vertical = 0
 size_flags_vertical = 8

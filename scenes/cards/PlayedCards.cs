@@ -13,7 +13,7 @@ public partial class PlayedCards : Node2D
     private Card _lastCard;
     private readonly List<KeyValuePair<Player, CardData>> _playedCards = new();
 
-    public void PlayCard(Player player, CardData cardData)
+    public void PlayCardOnTable(Player player, CardData cardData)
     {
         _playedCards.Add(new KeyValuePair<Player, CardData>(player, cardData));
         InstantiatePlayedCard(cardData);

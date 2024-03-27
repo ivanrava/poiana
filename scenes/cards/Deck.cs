@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using PoIAna.scenes.autoload;
 
@@ -7,43 +8,58 @@ namespace PoIAna.scenes.cards;
 
 public partial class Deck : Node2D
 {
-    private ICardExtractor _deck;
+    private IDeck _deck;
     private Label _remainingCards;
+    private Card _briscolaSprite;
+    private Card _deckBackSprite;
     
     public override void _Ready()
     {
         base._Ready();
         _deck = new DeckBriscola();
-        GetNode<Card>("Back").SetBack();
-        var briscola = _deck.Extract();
-        GetNode<Card>("Briscola").SetCard(briscola);
+        _deckBackSprite = GetNode<Card>("Back");
+        _deckBackSprite.SetBack();
+        var briscola = _deck.PeekLast();
+        _briscolaSprite = GetNode<Card>("Briscola");
+        _briscolaSprite.SetCard(briscola);
         GetNode<GameGlobals>("/root/GameGlobals").Briscola = briscola.Suit;
         _remainingCards = GetNode<Label>("RemainingCards");
-        UpdateRemainingCards();
+        
+        UpdateRemainingCardsInterface();
     }
 
-    private void UpdateRemainingCards()
+    private void UpdateRemainingCardsInterface()
     {
-        _remainingCards.Text = (_deck.Count() + 1).ToString();
+        _remainingCards.Text = _deck.Count().ToString();
+        if (_deck.Count() == 1)
+        {
+            _deckBackSprite.Hide();
+        }
+        else if (_deck.Count() == 0)
+        {
+            _briscolaSprite.Hide();
+            _remainingCards.Hide();
+        }
     }
 
     public new CardData Draw()
     {
-        CardData extracted = _deck.Extract();
-        UpdateRemainingCards();
-        return extracted;
+        CardData drawn = _deck.TryDraw();
+        UpdateRemainingCardsInterface();
+        return drawn;
     }
 }
 
-internal interface ICardExtractor
+internal interface IDeck
 {
-    CardData Extract();
+    CardData TryDraw();
+    CardData PeekLast();
     int Count();
 }
 
 public record CardData(Suit Suit, Score Score);
 
-internal class DeckBriscola : ICardExtractor
+internal class DeckBriscola : IDeck
 {
     private readonly List<CardData> _cards = new();
 
@@ -62,11 +78,19 @@ internal class DeckBriscola : ICardExtractor
         _cards.Shuffle();
     }
 
-    public CardData Extract()
+    public CardData TryDraw()
     {
+        if (_cards.Count <= 0) return null;
+        
         CardData card = _cards[0];
         _cards.RemoveAt(0);
         return card;
+
+    }
+
+    public CardData PeekLast()
+    {
+        return _cards.Last();
     }
 
     public int Count()

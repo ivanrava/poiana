@@ -2,7 +2,7 @@
 
 namespace PoIAna.scenes.ai;
 
-public interface IOpponent
+public interface IOpponentStrategy
 {
     Card ChooseCard(Hand opponentHand);
 }

@@ -4,7 +4,7 @@ using PoIAna.scenes.cards;
 
 namespace PoIAna.scenes.ai;
 
-public class RandomOpponent : IOpponent
+public class RandomOpponentStrategy : IOpponentStrategy
 {
     private readonly Random _random = new();
     

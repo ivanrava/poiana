@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using PoIAna.scenes.ai;
@@ -10,20 +11,27 @@ public partial class Table : Node
     private Hand _playerHand, _opponentHand;
     private Deck _deck;
     private bool _isPlayerTurn;
-    private IOpponent _opponent;
+    private IOpponentStrategy _opponentStrategy;
     private Area2D _clickOverlay;
     private PlayedCards _playedCards;
+    private Random _rng;
 
     private static readonly Player Player = new(0);
     private static readonly Player Opponent = new(1);
     private readonly Dictionary<Player, Label> _scores = new();
 
+    private bool RandomBool()
+    {
+        return _rng.NextDouble() > 0.5;
+    }
+
     public override void _Ready()
     {
         base._Ready();
+        _rng = new Random();
         
-        _opponent = new RandomOpponent();
-        _isPlayerTurn = true;
+        _opponentStrategy = new RandomOpponentStrategy();
+        _isPlayerTurn = RandomBool();
         
         _scores.Add(Player, GetNode<Label>("PlayerScore"));
         _scores.Add(Opponent, GetNode<Label>("OpponentScore"));
@@ -34,25 +42,78 @@ public partial class Table : Node
         _playedCards = GetNode<PlayedCards>("PlayedCards");
         // Initialize hands
         _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
-        _playerHand.CardSelected += HandleHandCardSelected;
         _opponentHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
 
         _clickOverlay = GetNode<Area2D>("ClickOverlay");
         _clickOverlay.InputEvent += ClickOverlayHandler;
         _clickOverlay.InputPickable = false;
+
+        if (!_isPlayerTurn)
+        {
+            OpponentMove();
+        }
+        _playerHand.CardSelected += HandleHandCardSelected;
+    }
+
+    /**
+     * Make the opponent play a card
+     */
+    private void OpponentMove()
+    {
+        Card opponentCard = _opponentHand.TakeCard(_opponentStrategy);
+        _playedCards.PlayCardOnTable(Opponent, opponentCard.CardData);
+    }
+
+    /**
+     * - Assign points to the winner score
+     * - Clean played cards
+     * - Update the turn player
+     */
+    private void ResolvePlayedCards()
+    {
+        var winner = _playedCards.Winner();
+        _scores[winner].Text = (int.Parse(_scores[winner].Text) + _playedCards.Score()).ToString();
+        
+        _playedCards.Clean();
+
+        _isPlayerTurn = winner == Player;
+    }
+
+    /**
+     * Draw cards from deck
+     */
+    private void DrawPhase()
+    {
+        CardData c1 = _deck.Draw();
+        CardData c2 = _deck.Draw();
+        if (c1 == null && c2 == null)
+            return;
+        
+        if (_isPlayerTurn)
+        {
+            _playerHand.AddCard(c1);
+            _opponentHand.AddCard(c2);
+        }
+        else
+        {
+            _opponentHand.AddCard(c1);
+            _playerHand.AddCard(c2);
+        }
     }
 
     private void ClickOverlayHandler(Node viewport, InputEvent @event, long shapeidx)
     {
         if (@event is InputEventMouseButton && @event.IsReleased())
         {
-            _scores[_playedCards.Winner()].Text = (int.Parse(_scores[_playedCards.Winner()].Text) + _playedCards.Score()).ToString();
-            
-            _playedCards.Clean();
-            _isPlayerTurn = true;
+            ResolvePlayedCards();
+            DrawPhase();
 
-            _playerHand.AddCard(_deck.Draw());
-            _opponentHand.AddCard(_deck.Draw());
+            if (!_isPlayerTurn)
+            {
+                OpponentMove();
+            }
+
+            _playerHand.CardSelected += HandleHandCardSelected;
             
             _clickOverlay.InputPickable = false;
             GetViewport().SetInputAsHandled();
@@ -61,13 +122,14 @@ public partial class Table : Node
 
     private void HandleHandCardSelected(Card card)
     {
+        _playerHand.CardSelected -= HandleHandCardSelected;
+        _playedCards.PlayCardOnTable(Player, card.CardData);
+
         if (_isPlayerTurn)
         {
-            _playedCards.PlayCard(Player, card.CardData);
-            _isPlayerTurn = false;
-            Card opponentCard = _opponentHand.ChooseCard(_opponent);
-            _playedCards.PlayCard(Opponent, opponentCard.CardData);
-            _clickOverlay.InputPickable = true;
+            OpponentMove();
         }
+        
+        _clickOverlay.InputPickable = true;
     }
 }
