@@ -15,10 +15,12 @@ public partial class Table : Node
     private Area2D _clickOverlay;
     private PlayedCards _playedCards;
     private Random _rng;
+    private Button _toggleVisibilityButton;
 
     private static readonly Player Player = new(0);
     private static readonly Player Opponent = new(1);
     private readonly Dictionary<Player, Label> _scores = new();
+    private Node2D _handCover;
 
     private bool RandomBool()
     {
@@ -40,6 +42,10 @@ public partial class Table : Node
         _opponentHand = GetNode<Hand>("OpponentHand");
         _deck = GetNode<Deck>("Deck");
         _playedCards = GetNode<PlayedCards>("PlayedCards");
+        _toggleVisibilityButton = GetNode<Button>("ToggleVisibilityButton");
+        _toggleVisibilityButton.Toggled += ToggleEnemyHandVisibility;
+        _handCover = GetNode<Node2D>("HandCover");
+        
         // Initialize hands
         _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
         _opponentHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
@@ -53,6 +59,11 @@ public partial class Table : Node
             OpponentMove();
         }
         _playerHand.CardSelected += HandleHandCardSelected;
+    }
+
+    private void ToggleEnemyHandVisibility(bool toggledon)
+    {
+        _handCover.Visible = !_handCover.Visible;
     }
 
     /**
