@@ -16,6 +16,7 @@ public partial class Table : Node
     private PlayedCards _playedCards;
     private Random _rng;
     private Button _toggleVisibilityButton;
+    private Button _resetButton;
 
     private static readonly Player Player = new(0);
     private static readonly Player Opponent = new(1);
@@ -43,8 +44,10 @@ public partial class Table : Node
         _deck = GetNode<Deck>("Deck");
         _playedCards = GetNode<PlayedCards>("PlayedCards");
         _toggleVisibilityButton = GetNode<Button>("ToggleVisibilityButton");
-        _toggleVisibilityButton.Toggled += ToggleEnemyHandVisibility;
+        _toggleVisibilityButton.Toggled += on => _handCover.Visible = !_handCover.Visible;
         _handCover = GetNode<Node2D>("HandCover");
+        _resetButton = GetNode<Button>("ResetButton");
+        _resetButton.Pressed += () => GetTree().ReloadCurrentScene();
         
         // Initialize hands
         _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
@@ -59,11 +62,6 @@ public partial class Table : Node
             OpponentMove();
         }
         _playerHand.CardSelected += HandleHandCardSelected;
-    }
-
-    private void ToggleEnemyHandVisibility(bool toggledon)
-    {
-        _handCover.Visible = !_handCover.Visible;
     }
 
     /**
