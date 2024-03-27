@@ -1,8 +1,9 @@
-﻿using PoIAna.scenes.cards;
+﻿using System.Collections.Generic;
+using PoIAna.scenes.cards;
 
 namespace PoIAna.scenes.ai;
 
 public interface IOpponentStrategy
 {
-    Card ChooseCard(Hand opponentHand);
+    int ChooseCard(List<Card> hand);
 }

@@ -51,9 +51,10 @@ public partial class Hand : Node2D
 
     public Card TakeCard(IOpponentStrategy opponentStrategy)
     {
-        Card card = opponentStrategy.ChooseCard(this);
-        _cardSelected = card;
+        int idx = opponentStrategy.ChooseCard(Cards);
+        _cardSelected = Cards[idx];
+        Cards.RemoveAt(idx);
         _cardSelected.Hide();
-        return card;
+        return _cardSelected;
     }
 }

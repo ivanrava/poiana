@@ -8,12 +8,8 @@ public class RandomOpponentStrategy : IOpponentStrategy
 {
     private readonly Random _random = new();
     
-    public Card ChooseCard(Hand opponentHand)
+    public int ChooseCard(List<Card> hand)
     {
-        List<Card> cards = opponentHand.Cards;
-        var randomIdx = _random.Next(0, cards.Count);
-        var selectedCard = cards[randomIdx];
-        cards.RemoveAt(randomIdx);
-        return selectedCard;
+        return _random.Next(0, hand.Count);
     }
 }
