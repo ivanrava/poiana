@@ -5,5 +5,5 @@ namespace PoIAna.scenes.autoload;
 
 public partial class GameGlobals : Node
 {
-    public Suit Briscola;
+    public CardData Briscola;
 }

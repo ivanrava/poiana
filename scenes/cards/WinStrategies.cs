@@ -39,12 +39,12 @@ public class BriscolaWinStrategy : IWinStrategy
         var (firstPlayer, firstCard) = playedCards.First();
         var (secondPlayer, secondCard) = playedCards.Last();
 
-        if (firstCard.Suit == gameGlobals.Briscola)
+        if (firstCard.Suit == gameGlobals.Briscola.Suit)
         {
-            return secondCard.Suit == gameGlobals.Briscola ? WinnerSameSuit(playedCards) : firstPlayer;
+            return secondCard.Suit == gameGlobals.Briscola.Suit ? WinnerSameSuit(playedCards) : firstPlayer;
         }
 
-        if (secondCard.Suit == gameGlobals.Briscola)
+        if (secondCard.Suit == gameGlobals.Briscola.Suit)
         {
             return secondPlayer;
         }

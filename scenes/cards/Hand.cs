@@ -39,6 +39,7 @@ public partial class Hand : Node2D
     {
         _cardSelected = card;
         _cardSelected.Hide();
+        Cards.Remove(_cardSelected);
         EmitSignal(SignalName.CardSelected, card);
     }
 
@@ -49,9 +50,13 @@ public partial class Hand : Node2D
         Cards.Add(_cardSelected);
     }
 
-    public Card TakeCard(IOpponentStrategy opponentStrategy)
+    public Card TakeCard(IOpponentStrategy opponentStrategy, OnnxState state)
     {
-        int idx = opponentStrategy.ChooseCard(Cards);
+        int idx = opponentStrategy.ChooseCard(state);
+        while (idx >= Cards.Count)
+        {
+            idx--;
+        }
         _cardSelected = Cards[idx];
         Cards.RemoveAt(idx);
         _cardSelected.Hide();

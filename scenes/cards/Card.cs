@@ -27,7 +27,7 @@ public partial class Card : AnimatedSprite2D
     private int GetCardFrameIndex(Suit suit, Score score)
     {
         const int maxSuitCards = 13;
-        return (int) suit * maxSuitCards + (int) score;
+        return ((int) suit-1) * maxSuitCards + ((int) score-1);
     }
 
     public void SetCard(CardData cardData)
@@ -50,6 +50,7 @@ public partial class Card : AnimatedSprite2D
 
 public enum Score
 {
+    Pad,
     Ace,
     Two,
     Three,
@@ -67,8 +68,9 @@ public enum Score
 
 public enum Suit
 {
-    Coins,
-    Batons,
-    Cups,
+    Pad,
     Swords,
+    Coins,
+    Cups,
+    Batons,
 }

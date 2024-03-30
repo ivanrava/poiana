@@ -22,7 +22,7 @@ public partial class Deck : Node2D
         var briscola = _deck.PeekLast();
         _briscolaSprite = GetNode<Card>("Briscola");
         _briscolaSprite.SetCard(briscola);
-        GetNode<GameGlobals>("/root/GameGlobals").Briscola = briscola.Suit;
+        GetNode<GameGlobals>("/root/GameGlobals").Briscola = briscola;
         _remainingCards = GetNode<Label>("RemainingCards");
         
         UpdateRemainingCardsInterface();
@@ -48,6 +48,11 @@ public partial class Deck : Node2D
         UpdateRemainingCardsInterface();
         return drawn;
     }
+
+    public int RemainingCards()
+    {
+        return _deck.Count();
+    }
 }
 
 internal interface IDeck
@@ -67,8 +72,16 @@ internal class DeckBriscola : IDeck
     {
         foreach (Suit suit in Enum.GetValues(typeof(Suit)))
         {
+            if (suit == Suit.Pad)
+            {
+                continue;
+            }
             foreach (Score score in Enum.GetValues(typeof(Score)))
             {
+                if (score == Score.Pad)
+                {
+                    continue;
+                }
                 if (score != Score.Eight && score != Score.Nine && score != Score.Ten)
                 {
                     _cards.Add(new CardData(suit, score));

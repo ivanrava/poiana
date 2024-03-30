@@ -11,11 +11,11 @@ public partial class PlayedCards : Node2D
     private PackedScene _cardScene = GD.Load<PackedScene>("res://scenes/cards/Card.tscn");
     private readonly Random _random = new();
     private Card _lastCard;
-    private readonly List<KeyValuePair<Player, CardData>> _playedCards = new();
+    public readonly List<KeyValuePair<Player, CardData>> Cards = new();
 
     public void PlayCardOnTable(Player player, CardData cardData)
     {
-        _playedCards.Add(new KeyValuePair<Player, CardData>(player, cardData));
+        Cards.Add(new KeyValuePair<Player, CardData>(player, cardData));
         InstantiatePlayedCard(cardData);
     }
 
@@ -41,7 +41,7 @@ public partial class PlayedCards : Node2D
             child.QueueFree();
         }
 
-        _playedCards.Clear();
+        Cards.Clear();
         _lastCard = null;
     }
 
@@ -52,7 +52,7 @@ public partial class PlayedCards : Node2D
 
     public Player Winner()
     {
-        return new BriscolaWinStrategy().Winner(_playedCards, GetNode<GameGlobals>("/root/GameGlobals"));
+        return new BriscolaWinStrategy().Winner(Cards, GetNode<GameGlobals>("/root/GameGlobals"));
     }
 }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using PoIAna.scenes.ai;
+using PoIAna.scenes.autoload;
 using PoIAna.scenes.cards;
 
 namespace PoIAna.scenes.screens;
@@ -11,12 +12,13 @@ public partial class Table : Node
     private Hand _playerHand, _opponentHand;
     private Deck _deck;
     private bool _isPlayerTurn;
-    private IOpponentStrategy _opponentStrategy;
+    private OnnxOpponentStrategy _opponentStrategy;
     private Area2D _clickOverlay;
     private PlayedCards _playedCards;
     private Random _rng;
     private Button _toggleVisibilityButton;
     private Button _resetButton;
+    private int _turn;
 
     private static readonly Player Player = new(0);
     private static readonly Player Opponent = new(1);
@@ -33,7 +35,7 @@ public partial class Table : Node
         base._Ready();
         _rng = new Random();
         
-        _opponentStrategy = new RandomOpponentStrategy();
+        _opponentStrategy = new OnnxOpponentStrategy();
         _isPlayerTurn = RandomBool();
         
         _scores.Add(Player, GetNode<Label>("PlayerScore"));
@@ -62,6 +64,24 @@ public partial class Table : Node
             OpponentMove();
         }
         _playerHand.CardSelected += HandleHandCardSelected;
+
+        _turn = 1;
+    }
+
+    private OnnxState State()
+    {
+        return new OnnxState(
+            Int32.Parse(_scores[Opponent].Text),
+            Int32.Parse(_scores[Player].Text),
+            _opponentHand.Cards.Count,
+            _playerHand.Cards.Count,
+            _deck.RemainingCards(),
+            _opponentHand,
+            _playedCards,
+            _turn,
+            GetNode<GameGlobals>("/root/GameGlobals").Briscola,
+            _isPlayerTurn ? 1 : 0
+        );
     }
 
     /**
@@ -69,7 +89,7 @@ public partial class Table : Node
      */
     private void OpponentMove()
     {
-        Card opponentCard = _opponentHand.TakeCard(_opponentStrategy);
+        Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State());
         _playedCards.PlayCardOnTable(Opponent, opponentCard.CardData);
     }
 
@@ -108,6 +128,8 @@ public partial class Table : Node
             _opponentHand.AddCard(c1);
             _playerHand.AddCard(c2);
         }
+
+        _turn++;
     }
 
     private void ClickOverlayHandler(Node viewport, InputEvent @event, long shapeidx)
