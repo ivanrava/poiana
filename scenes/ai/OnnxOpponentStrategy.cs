@@ -5,12 +5,12 @@ using Microsoft.ML.OnnxRuntime;
 
 namespace PoIAna.scenes.ai;
 
-public class OnnxOpponentStrategy : IOpponentStrategy
+public class OnnxOpponentStrategy : OpponentStrategy
 {
     private int Idx(OnnxState state)
     {
         // Get path to model to create inference session.
-        const string modelPath = "./models/blooming-bird.onnx";
+        var modelPath = "./models/" + ModelFilename;
 
         // Create an InferenceSession from the Model Path.
         // Creating and loading sessions are expensive per request.
@@ -43,9 +43,13 @@ public class OnnxOpponentStrategy : IOpponentStrategy
         return (int)choice;
     }
     
-    public int ChooseCard(OnnxState state)
+    public override int ChooseCard(OnnxState state)
     {
         var idx = Idx(state);
         return idx;
+    }
+
+    public OnnxOpponentStrategy(string modelFilename) : base(modelFilename)
+    {
     }
 }

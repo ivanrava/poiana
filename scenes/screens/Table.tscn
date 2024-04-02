@@ -81,19 +81,37 @@ size_flags_horizontal = 0
 toggle_mode = true
 text = "Toggle visibility"
 
-[node name="ResetButton" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -35.0
-offset_right = -5.0
-offset_bottom = -4.0
+offset_left = -106.0
+offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="MenuButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Menu"
+alignment = 2
+
+[node name="ResetButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
 text = "Reset"
 alignment = 2
+
+[node name="ModelName" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_type_variation = &"HeaderMedium"
+text = "Model name"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [editable path="HandCover"]

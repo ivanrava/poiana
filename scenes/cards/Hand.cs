@@ -50,7 +50,7 @@ public partial class Hand : Node2D
         Cards.Add(_cardSelected);
     }
 
-    public Card TakeCard(IOpponentStrategy opponentStrategy, OnnxState state)
+    public Card TakeCard(OpponentStrategy opponentStrategy, OnnxState state)
     {
         int idx = opponentStrategy.ChooseCard(state);
         while (idx >= Cards.Count)

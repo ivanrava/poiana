@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://s20t2pe0h7fd"]
+
+[ext_resource type="Texture2D" uid="uid://dythl6rw23afq" path="res://assets/ui_sheet_blue.png" id="1_cbc58"]
+[ext_resource type="Script" path="res://scenes/ui/MainMenu.cs" id="1_i71le"]
+[ext_resource type="Script" path="res://scenes/ui/Selector.cs" id="1_jqbi5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evev4"]
+atlas = ExtResource("1_cbc58")
+region = Rect2(339, 143, 39, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ib17f"]
+atlas = ExtResource("1_cbc58")
+region = Rect2(378, 143, 39, 31)
+
+[node name="MainMenu" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.207843, 0.207843, 0.207843, 1)
+script = ExtResource("1_i71le")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -140.0
+offset_right = 200.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+script = ExtResource("1_jqbi5")
+
+[node name="Previous" type="Button" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_evev4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Name" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_type_variation = &"HeaderLarge"
+text = "⭐ true-star"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Best model thus far"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Next" type="Button" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_ib17f")
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -40.0
+offset_right = 80.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"

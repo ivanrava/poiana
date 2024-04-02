@@ -4,6 +4,7 @@ using Godot;
 using PoIAna.scenes.ai;
 using PoIAna.scenes.autoload;
 using PoIAna.scenes.cards;
+using PoIAna.scenes.ui;
 
 namespace PoIAna.scenes.screens;
 
@@ -17,7 +18,6 @@ public partial class Table : Node
     private PlayedCards _playedCards;
     private Random _rng;
     private Button _toggleVisibilityButton;
-    private Button _resetButton;
     private int _turn;
 
     private static readonly Player Player = new(0);
@@ -34,8 +34,10 @@ public partial class Table : Node
     {
         base._Ready();
         _rng = new Random();
-        
-        _opponentStrategy = new OnnxOpponentStrategy();
+
+        var modelMeta = GetNode<GameGlobals>("/root/GameGlobals").ModelMeta;
+        GetNode<Label>("ModelName").Text = modelMeta.DisplayName;
+        _opponentStrategy = new OnnxOpponentStrategy(modelMeta.Filename);
         _isPlayerTurn = RandomBool();
         
         _scores.Add(Player, GetNode<Label>("PlayerScore"));
@@ -48,8 +50,9 @@ public partial class Table : Node
         _toggleVisibilityButton = GetNode<Button>("ToggleVisibilityButton");
         _toggleVisibilityButton.Toggled += on => _handCover.Visible = !_handCover.Visible;
         _handCover = GetNode<Node2D>("HandCover");
-        _resetButton = GetNode<Button>("ResetButton");
-        _resetButton.Pressed += () => GetTree().ReloadCurrentScene();
+        GetNode<Button>("HBoxContainer/ResetButton").Pressed += () => GetTree().ReloadCurrentScene();
+        GetNode<Button>("HBoxContainer/MenuButton").Pressed += () =>
+            GetTree().ChangeSceneToPacked(GD.Load<PackedScene>("res://scenes/ui/MainMenu.tscn"));
         
         // Initialize hands
         _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
