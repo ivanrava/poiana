@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm26oppoddfro"]
+[gd_scene load_steps=8 format=3 uid="uid://bm26oppoddfro"]
 
 [ext_resource type="PackedScene" uid="uid://c8shxai06bcgt" path="res://scenes/cards/Deck.tscn" id="1_imupy"]
 [ext_resource type="Script" path="res://scenes/screens/Table.cs" id="1_xnrsq"]
 [ext_resource type="PackedScene" uid="uid://dtgroo7dku0or" path="res://scenes/cards/Hand.tscn" id="2_5f83q"]
 [ext_resource type="PackedScene" uid="uid://dqrx8sn1jirjv" path="res://scenes/cards/PlayedCards.tscn" id="4_tvi8v"]
 [ext_resource type="PackedScene" uid="uid://btfatx3csqopq" path="res://scenes/ui/Score.tscn" id="4_yem0h"]
+[ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="6_indkq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q4fh"]
 size = Vector2(1280, 719)
@@ -73,24 +74,35 @@ position = Vector2(639, 360.5)
 shape = SubResource("RectangleShape2D_1q4fh")
 
 [node name="ToggleVisibilityButton" type="Button" parent="."]
-offset_left = 4.0
+offset_left = 5.0
 offset_top = 5.0
-offset_right = 154.0
-offset_bottom = 36.0
+offset_right = 155.0
+offset_bottom = 41.0
 size_flags_horizontal = 0
+theme = ExtResource("6_indkq")
 toggle_mode = true
 text = "Toggle visibility"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-anchors_preset = 3
+[node name="ModelName" type="Label" parent="."]
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -106.0
-offset_top = -40.0
+offset_left = -150.0
+offset_top = 4.0
+offset_right = -5.0
+offset_bottom = 38.0
 grow_horizontal = 0
-grow_vertical = 0
+theme_type_variation = &"HeaderMedium"
+text = "Model name"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 1158.0
+offset_top = 679.0
+offset_right = 1274.0
+offset_bottom = 715.0
+theme = ExtResource("6_indkq")
 
 [node name="MenuButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
@@ -101,17 +113,5 @@ alignment = 2
 layout_mode = 2
 text = "Reset"
 alignment = 2
-
-[node name="ModelName" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
-theme_type_variation = &"HeaderMedium"
-text = "Model name"
-horizontal_alignment = 2
-vertical_alignment = 1
 
 [editable path="HandCover"]

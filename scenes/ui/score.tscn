@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://btfatx3csqopq"]
+[gd_scene load_steps=2 format=3 uid="uid://btfatx3csqopq"]
+
+[ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_8hj6j"]
 
 [node name="Score" type="Label"]
 offset_right = 40.0
 offset_bottom = 23.0
+theme = ExtResource("1_8hj6j")
 theme_override_font_sizes/font_size = 48
 text = "0"

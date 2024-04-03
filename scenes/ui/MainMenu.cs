@@ -3,7 +3,7 @@ using PoIAna.scenes.autoload;
 
 namespace PoIAna.scenes.ui;
 
-public partial class MainMenu : ColorRect
+public partial class MainMenu : TextureRect
 {
     public override void _Ready()
     {
