@@ -10,7 +10,7 @@ public partial class MainMenu : TextureRect
         GetNode<Button>("Play").ButtonUp += () =>
         {
             var gameScene = GD.Load<PackedScene>("res://scenes/screens/Table.tscn");
-            GetNode<GameGlobals>("/root/GameGlobals").ModelMeta = GetNode<Selector>("PanelContainer/HBoxContainer").SelectedModel();
+            GetNode<GameGlobals>("/root/GameGlobals").ModelMeta = GetNode<Selector>("ModelSelector").SelectedModel();
             GetTree().ChangeSceneToPacked(gameScene);
         };
     }

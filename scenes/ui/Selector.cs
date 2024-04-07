@@ -3,7 +3,7 @@ using Godot;
 
 namespace PoIAna.scenes.ui;
 
-public partial class Selector : HBoxContainer
+public partial class Selector : PanelContainer
 {
     private Button _previous;
     private Button _next;
@@ -12,6 +12,7 @@ public partial class Selector : HBoxContainer
     private int _idxOfSelected;
     private readonly List<ModelMeta> _modelMetas = new()
     {
+        new ModelMeta("🤳🏻", "best_model", "DQN self-play", 0f),
         new ModelMeta("🌊", "amber-lake", "Long training with a sparse reward.", 0.45f),
         new ModelMeta("🐦", "blooming-bird", "Best model with memory", 0.60f),
         new ModelMeta("🧨", "cosmic-firebrand", "Worst of the best. Quick training with fast stiffness and lr = 1e-4.", 0.25f),
@@ -34,8 +35,8 @@ public partial class Selector : HBoxContainer
     public override void _Ready()
     {
         base._Ready();
-        _previous = GetNode<Button>("Previous");
-        _next = GetNode<Button>("Next");
+        _previous = GetNode<Button>("%Previous");
+        _next = GetNode<Button>("%Next");
         _name = GetNode<Label>("%Name");
         _description = GetNode<Label>("%Description");
         _winRate = GetNode<ProgressBar>("%WinRate");

@@ -1,12 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://s20t2pe0h7fd"]
+[gd_scene load_steps=5 format=3 uid="uid://s20t2pe0h7fd"]
 
 [ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="1_1o7rf"]
 [ext_resource type="Script" path="res://scenes/ui/MainMenu.cs" id="1_i71le"]
-[ext_resource type="Script" path="res://scenes/ui/Selector.cs" id="1_jqbi5"]
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_ua41s"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hpwq"]
-bg_color = Color(0.0117647, 0.227451, 0.321569, 1)
+[ext_resource type="PackedScene" uid="uid://dr8g1rw1ea7me" path="res://scenes/ui/ModelSelector.tscn" id="4_awvjq"]
 
 [node name="MainMenu" type="TextureRect"]
 anchors_preset = 15
@@ -19,62 +16,10 @@ texture = ExtResource("1_1o7rf")
 expand_mode = 2
 script = ExtResource("1_i71le")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="ModelSelector" parent="." instance=ExtResource("4_awvjq")]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -140.0
-offset_right = 200.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-script = ExtResource("1_jqbi5")
-
-[node name="Previous" type="Button" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "<"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="Name" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_type_variation = &"HeaderLarge"
-text = "⭐ true-star"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Description" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Best model thus far"
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="WinRate" type="ProgressBar" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_4hpwq")
-value = 50.0
-
-[node name="Next" type="Button" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = ">"
+offset_top = -170.0
+offset_bottom = -45.0
 
 [node name="Play" type="Button" parent="."]
 layout_mode = 1
