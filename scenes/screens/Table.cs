@@ -55,8 +55,8 @@ public partial class Table : Node
             GetTree().ChangeSceneToPacked(GD.Load<PackedScene>("res://scenes/ui/MainMenu.tscn"));
         
         // Initialize hands
-        _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
         _opponentHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
+        _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
 
         _clickOverlay = GetNode<Area2D>("ClickOverlay");
         _clickOverlay.InputEvent += ClickOverlayHandler;
