@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bbu2j05cnvwh0" path="res://scenes/ui/Logo.tscn" id="4_qnvel"]
 [ext_resource type="PackedScene" uid="uid://bn62lg1m612hn" path="res://scenes/ui/SmallButton.tscn" id="4_vu0pk"]
 [ext_resource type="FontFile" uid="uid://xlhdua8hd8aw" path="res://assets/fonts/Kanit-Bold.ttf" id="5_er414"]
-[ext_resource type="FontFile" uid="uid://6nm8l3thbw8g" path="res://assets/fonts/Kanit-Regular.ttf" id="6_q68eh"]
+[ext_resource type="FontFile" uid="uid://ddjwm5lkljfxk" path="res://assets/fonts/Kanit-Italic.ttf" id="7_jg1w3"]
 
 [node name="SelectorMenu" type="TextureRect"]
 anchors_preset = 15
@@ -106,7 +106,7 @@ horizontal_alignment = 1
 [node name="Description" type="Label" parent="VBoxContainer/MarginText/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_q68eh")
+theme_override_fonts/font = ExtResource("7_jg1w3")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 
