@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://ds7v8dbt8wvln"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://ds7v8dbt8wvln"]
 
+[ext_resource type="FontFile" uid="uid://booeyyn3yrebu" path="res://assets/fonts/Kanit-Medium.ttf" id="1_fojq5"]
 [ext_resource type="Texture2D" uid="uid://dythl6rw23afq" path="res://assets/ui_sheet_blue.png" id="1_ryebd"]
+[ext_resource type="FontFile" uid="uid://p2boinsv1oo6" path="res://assets/fonts/Kanit-Light.ttf" id="3_3n17b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3yj7x"]
 atlas = ExtResource("1_ryebd")
@@ -50,7 +52,10 @@ texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
 [resource]
+Button/fonts/font = ExtResource("1_fojq5")
 Button/styles/focus = SubResource("StyleBoxTexture_mxeb8")
 Button/styles/hover = SubResource("StyleBoxTexture_cbjpb")
 Button/styles/normal = SubResource("StyleBoxTexture_olpxx")
 Button/styles/pressed = SubResource("StyleBoxTexture_keljs")
+Label/constants/line_spacing = 0
+Label/fonts/font = ExtResource("3_3n17b")
