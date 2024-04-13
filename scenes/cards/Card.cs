@@ -52,8 +52,8 @@ public partial class Card : AnimatedSprite2D
 
     private int GetBackFrameIndex()
     {
-        const int maxCards = 52;
-        return maxCards;
+        const int maxCards = 55;
+        return maxCards - 2;
     }
 }
 

@@ -47,8 +47,14 @@ public partial class Table : Node
         _opponentHand = GetNode<Hand>("OpponentHand");
         _deck = GetNode<Deck>("Deck");
         _playedCards = GetNode<PlayedCards>("PlayedCards");
-        GetNode<Button>("%ToggleVisibilityButton").Toggled += on => _handCover.Visible = !_handCover.Visible;
+        
         _handCover = GetNode<Node2D>("HandCover");
+        foreach (var backCover in _handCover.GetChildren())
+        {
+            ((Card)backCover).SetBack();
+        }
+        
+        GetNode<Button>("%ToggleVisibilityButton").Toggled += on => _handCover.Visible = !_handCover.Visible;
         GetNode<Button>("%ResetButton").Pressed += () => GetTree().ReloadCurrentScene();
         GetNode<Button>("%MenuButton").Pressed += () =>
             GetTree().ChangeSceneToPacked(GD.Load<PackedScene>("res://scenes/ui/MainMenu.tscn"));
