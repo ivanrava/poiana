@@ -18,7 +18,7 @@ public partial class SelectorMenu : TextureRect
         new ModelMeta("🍃", "bumbling-leaf", "Only the sparse reward, with a 256:256 ReLU network.", 0.615367f),
         new ModelMeta("🪨", "easy-shape", "Only sparse reward and a 256:256 ReLU network. Slow annealing.", 0.612867f),
         new ModelMeta("🌲", "toasty-pine", "Long training with harsher penalties. Pretty hard, less errors.", 0.707933f),
-        new ModelMeta("🐦", "blooming-bird", "Best model with memory", 0.682033f),
+        new ModelMeta("🐦", "blooming-bird", "One of the first models with penalties.", 0.682033f),
         new ModelMeta("📄", "devout-paper", "Harsher penalties and quick training.", 0.6811f),
         new ModelMeta("🧨", "cosmic-firebrand", "Worst of the best. Quick training with fast stiffness and lr = 1e-4.", 0.450967f),
         new ModelMeta("🥗", "dark-salad", "Long training with a bigger lr (3e-3)", 0.572400f),
