@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://s20t2pe0h7fd"]
+[gd_scene load_steps=6 format=3 uid="uid://s20t2pe0h7fd"]
 
 [ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="1_1o7rf"]
 [ext_resource type="Script" path="res://scenes/ui/MainMenu.cs" id="1_i71le"]
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_ua41s"]
 [ext_resource type="PackedScene" uid="uid://dr8g1rw1ea7me" path="res://scenes/ui/ModelSelector.tscn" id="4_awvjq"]
+[ext_resource type="Texture2D" uid="uid://brmejtpfe2hq8" path="res://icon.png" id="4_gtti0"]
 
 [node name="MainMenu" type="TextureRect"]
 anchors_preset = 15
@@ -16,23 +17,47 @@ texture = ExtResource("1_1o7rf")
 expand_mode = 2
 script = ExtResource("1_i71le")
 
-[node name="ModelSelector" parent="." instance=ExtResource("4_awvjq")]
-layout_mode = 1
-offset_top = -170.0
-offset_bottom = -45.0
-
-[node name="Play" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -40.0
-offset_right = 80.0
-offset_bottom = 40.0
+offset_left = -261.0
+offset_top = -119.5
+offset_right = 261.0
+offset_bottom = 119.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_gtti0")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="PoIAna" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "PoIAna"
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Play"
+
+[node name="ModelSelector" parent="." instance=ExtResource("4_awvjq")]
+layout_mode = 1
+offset_top = -170.0
+offset_bottom = -45.0
