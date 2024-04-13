@@ -52,6 +52,8 @@ public partial class Table : Node
         GetNode<Button>("%ResetButton").Pressed += () => GetTree().ReloadCurrentScene();
         GetNode<Button>("%MenuButton").Pressed += () =>
             GetTree().ChangeSceneToPacked(GD.Load<PackedScene>("res://scenes/ui/MainMenu.tscn"));
+        GetNode<Button>("%ModelButton").Pressed += () =>
+            GetTree().ChangeSceneToPacked(GD.Load<PackedScene>("res://scenes/ui/SelectorMenu.tscn"));
         
         // Initialize hands
         _opponentHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
