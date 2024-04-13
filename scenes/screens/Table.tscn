@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bm26oppoddfro"]
+[gd_scene load_steps=9 format=3 uid="uid://bm26oppoddfro"]
 
 [ext_resource type="PackedScene" uid="uid://c8shxai06bcgt" path="res://scenes/cards/Deck.tscn" id="1_imupy"]
 [ext_resource type="Script" path="res://scenes/screens/Table.cs" id="1_xnrsq"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dqrx8sn1jirjv" path="res://scenes/cards/PlayedCards.tscn" id="4_tvi8v"]
 [ext_resource type="PackedScene" uid="uid://btfatx3csqopq" path="res://scenes/ui/Score.tscn" id="4_yem0h"]
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="6_indkq"]
+[ext_resource type="PackedScene" uid="uid://bn62lg1m612hn" path="res://scenes/ui/SmallButton.tscn" id="7_sce0h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q4fh"]
 size = Vector2(1280, 719)
@@ -73,14 +74,17 @@ size_flags_vertical = 8
 position = Vector2(639, 360.5)
 shape = SubResource("RectangleShape2D_1q4fh")
 
-[node name="ToggleVisibilityButton" type="Button" parent="."]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 155.0
-offset_bottom = 41.0
-size_flags_horizontal = 0
-theme = ExtResource("6_indkq")
-toggle_mode = true
+[node name="TopMargin" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ToggleVisibilityButton" parent="TopMargin" instance=ExtResource("7_sce0h")]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Toggle visibility"
 
 [node name="ModelName" type="Label" parent="."]
@@ -97,21 +101,32 @@ text = "Model name"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_left = 1158.0
-offset_top = 679.0
-offset_right = 1274.0
-offset_bottom = 715.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -117.0
+offset_top = -46.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 theme = ExtResource("6_indkq")
 
-[node name="MenuButton" type="Button" parent="HBoxContainer"]
+[node name="MenuButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("7_sce0h")]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Menu"
-alignment = 2
 
-[node name="ResetButton" type="Button" parent="HBoxContainer"]
+[node name="ResetButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("7_sce0h")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Reset"
-alignment = 2
 
 [editable path="HandCover"]

@@ -1,0 +1,163 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfhiwjb76xeim"]
+
+[ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_ncrs2"]
+[ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="2_yarvv"]
+[ext_resource type="Script" path="res://scenes/ui/SelectorMenu.cs" id="3_npfak"]
+[ext_resource type="PackedScene" uid="uid://bbu2j05cnvwh0" path="res://scenes/ui/Logo.tscn" id="4_qnvel"]
+[ext_resource type="PackedScene" uid="uid://bn62lg1m612hn" path="res://scenes/ui/SmallButton.tscn" id="4_vu0pk"]
+[ext_resource type="FontFile" uid="uid://xlhdua8hd8aw" path="res://assets/fonts/Kanit-Bold.ttf" id="5_er414"]
+[ext_resource type="FontFile" uid="uid://6nm8l3thbw8g" path="res://assets/fonts/Kanit-Regular.ttf" id="6_q68eh"]
+
+[node name="SelectorMenu" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ncrs2")
+texture = ExtResource("2_yarvv")
+expand_mode = 2
+script = ExtResource("3_npfak")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 8
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Back" parent="VBoxContainer/MarginContainer/Header" instance=ExtResource("4_vu0pk")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Back"
+
+[node name="Logo" parent="VBoxContainer/MarginContainer/Header" instance=ExtResource("4_qnvel")]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="MarginContainer" parent="VBoxContainer/MarginContainer/Header/Logo" index="1"]
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer/Header"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_er414")
+theme_override_font_sizes/font_size = 56
+text = "Difficulty"
+
+[node name="MarginMain" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer/MarginMain"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginText" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginText"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginText/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginText/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="DisplayName" type="Label" parent="VBoxContainer/MarginText/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_er414")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="VBoxContainer/MarginText/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_q68eh")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="WinRate" type="RichTextLabel" parent="VBoxContainer/MarginText/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("5_er414")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="Play" type="Button" parent="VBoxContainer/MarginText/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="HBoxContainer" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftCopyright" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+offset_right = 249.0
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="GodotAuthor" type="Label" parent="VBoxContainer/HBoxContainer/LeftCopyright"]
+layout_mode = 2
+text = "2024, Ivan Ravasi (Godot frontend)"
+horizontal_alignment = 1
+
+[node name="RightCopyright" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -407.0
+offset_top = -29.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="DRLAuthors" type="Label" parent="VBoxContainer/HBoxContainer/RightCopyright"]
+layout_mode = 2
+text = "2024, Ivan Ravasi & Davide Zambelli (DRL model training)"
+horizontal_alignment = 1
+
+[editable path="VBoxContainer/MarginContainer/Header/Logo"]

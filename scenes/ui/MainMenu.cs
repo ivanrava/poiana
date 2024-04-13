@@ -9,9 +9,12 @@ public partial class MainMenu : TextureRect
     {
         GetNode<Button>("%Play").ButtonUp += () =>
         {
-            var gameScene = GD.Load<PackedScene>("res://scenes/screens/Table.tscn");
-            GetNode<GameGlobals>("/root/GameGlobals").ModelMeta = GetNode<Selector>("ModelSelector").SelectedModel();
+            var gameScene = GD.Load<PackedScene>("res://scenes/ui/SelectorMenu.tscn");
             GetTree().ChangeSceneToPacked(gameScene);
+        };
+        GetNode<Button>("%Quit").ButtonUp += () =>
+        {
+            GetTree().Quit();
         };
     }
 }

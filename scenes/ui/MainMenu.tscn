@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://s20t2pe0h7fd"]
+[gd_scene load_steps=5 format=3 uid="uid://s20t2pe0h7fd"]
 
 [ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="1_1o7rf"]
 [ext_resource type="Script" path="res://scenes/ui/MainMenu.cs" id="1_i71le"]
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_ua41s"]
-[ext_resource type="PackedScene" uid="uid://dr8g1rw1ea7me" path="res://scenes/ui/ModelSelector.tscn" id="4_awvjq"]
-[ext_resource type="Texture2D" uid="uid://brmejtpfe2hq8" path="res://icon.png" id="4_gtti0"]
+[ext_resource type="PackedScene" uid="uid://bbu2j05cnvwh0" path="res://scenes/ui/Logo.tscn" id="4_nrsr0"]
 
 [node name="MainMenu" type="TextureRect"]
 anchors_preset = 15
@@ -32,32 +31,56 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Logo" parent="VBoxContainer" instance=ExtResource("4_nrsr0")]
 layout_mode = 2
-alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("4_gtti0")
-expand_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_bottom = 40
+theme_override_constants/separation = 16
 
-[node name="PoIAna" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 72
-text = "PoIAna"
-
-[node name="Play" type="Button" parent="VBoxContainer"]
+[node name="Play" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
-[node name="ModelSelector" parent="." instance=ExtResource("4_awvjq")]
+[node name="Quit" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-offset_top = -170.0
-offset_bottom = -45.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -219.5
+offset_top = -59.0
+offset_right = 219.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Authors" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "2024, Ivan Ravasi (Godot frontend)
+2024, Ivan Ravasi & Davide Zambelli (DRL model training)"
+horizontal_alignment = 1
+
+[node name="UniBS" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Made in partial fulfillment of the AI course exam requirements @ University of Brescia"
+horizontal_alignment = 1
