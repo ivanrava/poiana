@@ -46,6 +46,9 @@ public partial class Selector : PanelContainer
         _name = GetNode<Label>("%Name");
         _description = GetNode<Label>("%Description");
         _winRate = GetNode<ProgressBar>("%WinRate");
+        
+        _modelMetas.Sort((meta1, meta2) => meta1.WinRate.CompareTo(meta2.WinRate));
+        
         UpdateLabels(_modelMetas[_idxOfSelected]);
         _previous.Pressed += () => UpdateLabels(_modelMetas[--_idxOfSelected % _modelMetas.Count]);
         _next.Pressed += () => UpdateLabels(_modelMetas[++_idxOfSelected % _modelMetas.Count]);
