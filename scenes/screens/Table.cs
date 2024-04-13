@@ -94,6 +94,7 @@ public partial class Table : Node
     private void OpponentMove()
     {
         Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State());
+        _handCover.GetNode<Card>(new NodePath(opponentCard.Name)).Hide();
         _playedCards.PlayCardOnTable(Opponent, opponentCard.CardData);
     }
 
@@ -131,6 +132,12 @@ public partial class Table : Node
         {
             _opponentHand.AddCard(c1);
             _playerHand.AddCard(c2);
+        }
+
+        foreach (var node in _handCover.GetChildren())
+        {
+            var child = (Card)node;
+            child.Show();
         }
 
         _turn++;
