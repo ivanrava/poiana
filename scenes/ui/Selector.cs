@@ -14,6 +14,7 @@ public partial class Selector : PanelContainer
     {
         new ModelMeta("🤳🏻", "best_model", "DQN self-play", 0f),
         new ModelMeta("🌊", "amber-lake", "Long training with a sparse reward.", 0.45f),
+        new ModelMeta("🌲", "toasty-pine", "Harsher penalties and higher bias.", 0.0f),
         new ModelMeta("🐦", "blooming-bird", "Best model with memory", 0.60f),
         new ModelMeta("🧨", "cosmic-firebrand", "Worst of the best. Quick training with fast stiffness and lr = 1e-4.", 0.25f),
         new ModelMeta("🥗", "dark-salad", "Long training with a bigger lr (3e-3)", 0.40f),
