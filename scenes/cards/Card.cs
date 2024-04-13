@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace PoIAna.scenes.cards;
@@ -26,8 +27,16 @@ public partial class Card : AnimatedSprite2D
 
     private int GetCardFrameIndex(Suit suit, Score score)
     {
+        int suitIndex = suit switch
+        {
+            Suit.Swords => 3,
+            Suit.Coins => 0,
+            Suit.Cups => 2,
+            Suit.Batons => 1,
+            _ => throw new ArgumentOutOfRangeException(nameof(suit), suit, null)
+        };
         const int maxSuitCards = 13;
-        return ((int) suit-1) * maxSuitCards + ((int) score-1);
+        return suitIndex * maxSuitCards + ((int) score-1);
     }
 
     public void SetCard(CardData cardData)
