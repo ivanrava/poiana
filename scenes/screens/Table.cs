@@ -36,7 +36,7 @@ public partial class Table : Node
         _rng = new Random();
 
         var modelMeta = GetNode<GameGlobals>("/root/GameGlobals").ModelMeta;
-        GetNode<Label>("ModelName").Text = modelMeta.DisplayName;
+        GetNode<Label>("%ModelName").Text = modelMeta.DisplayName;
         _opponentStrategy = new OnnxOpponentStrategy(modelMeta.Filename);
         _isPlayerTurn = RandomBool();
         
