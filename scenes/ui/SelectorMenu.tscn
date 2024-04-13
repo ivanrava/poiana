@@ -30,7 +30,7 @@ theme_override_constants/separation = 40
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 8
+theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 8
@@ -44,11 +44,18 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "Back"
 
-[node name="Logo" parent="VBoxContainer/MarginContainer/Header" instance=ExtResource("4_qnvel")]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Logo" parent="VBoxContainer/MarginContainer/Header/MarginContainer" instance=ExtResource("4_qnvel")]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="MarginContainer" parent="VBoxContainer/MarginContainer/Header/Logo" index="1"]
+[node name="MarginContainer" parent="VBoxContainer/MarginContainer/Header/MarginContainer/Logo" index="1"]
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = 0
 
@@ -160,4 +167,4 @@ layout_mode = 2
 text = "2024, Ivan Ravasi & Davide Zambelli (DRL model training)"
 horizontal_alignment = 1
 
-[editable path="VBoxContainer/MarginContainer/Header/Logo"]
+[editable path="VBoxContainer/MarginContainer/Header/MarginContainer/Logo"]

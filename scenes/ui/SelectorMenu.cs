@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PoIAna.scenes.autoload;
 using PoIAna.scenes.cards;
 using PoIAna.scenes.ui;
@@ -35,6 +36,20 @@ public partial class SelectorMenu : TextureRect
     };
     private ModelMeta _selectedModel;
     
+    private void ModulateStyleBox(Button button, string styleBoxName, Color color)
+    {
+        var normal = button.GetThemeStylebox(styleBoxName) as StyleBoxTexture;
+        StyleBoxTexture copy = new StyleBoxTexture();
+        copy.Texture = normal!.Texture;
+        copy.TextureMarginBottom = normal.TextureMarginBottom;
+        copy.TextureMarginTop = normal.TextureMarginTop;
+        copy.TextureMarginLeft = normal.TextureMarginLeft;
+        copy.TextureMarginRight = normal.TextureMarginRight;
+        copy.ModulateColor = color;
+        copy.RegionRect = normal.RegionRect;
+        button.AddThemeStyleboxOverride(styleBoxName, copy);
+    }
+    
     public override void _Ready()
     {
         base._Ready();
@@ -49,13 +64,22 @@ public partial class SelectorMenu : TextureRect
         {
             Play();
         };
-        
+
+        float min = _modelMetas.Select(meta => meta.WinRate).Min();
+        float max = _modelMetas.Select(meta => meta.WinRate).Max();
         foreach (ModelMeta modelMeta in _modelMetas)
         {
             Button button = new Button();
             button.Text = modelMeta.DisplayName;
             button.AddThemeFontSizeOverride("font_size", 24);
             container.AddChild(button);
+
+            var color = Colors.Purple.Lerp(Colors.Green, (modelMeta.WinRate - min) / (max - min));
+            ModulateStyleBox(button, "normal", color);
+            ModulateStyleBox(button, "focus", color);
+            ModulateStyleBox(button, "pressed", color);
+            ModulateStyleBox(button, "hover", color);
+            
             button.ButtonUp += () =>
             {
                 GetNode<Label>("%DisplayName").Text = modelMeta.DisplayName;
