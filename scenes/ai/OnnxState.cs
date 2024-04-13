@@ -26,10 +26,10 @@ public record OnnxState(int MyPoints, int OtherPoints, int HandSize, int OtherHa
         return cardOH;
     }
 
-    private IEnumerable<CardData> PadList(IEnumerable<CardData> cards)
+    private IEnumerable<CardData> PadList(IEnumerable<CardData> cards, int padding)
     {
         List<CardData> pad = new();
-        while (cards.Count() + pad.Count < 3)
+        while (cards.Count() + pad.Count < padding)
         {
             pad.Add(new CardData(Suit.Pad, Score.Pad));
         }
@@ -45,9 +45,9 @@ public record OnnxState(int MyPoints, int OtherPoints, int HandSize, int OtherHa
         float[] otherHandSizeOH = OneHotEncoding(OtherHandSize, 4);
         float[] remainingDeckCardsOH = OneHotEncoding(RemainingDeckCards, 41);
 
-        float[] handOH = PadList(Hand.Cards.Select(card => card.CardData)).Select(OneHotEncoding).Aggregate((a, b) => a.Concat(b).ToArray());
+        float[] handOH = PadList(Hand.Cards.Select(card => card.CardData), 3).Select(OneHotEncoding).Aggregate((a, b) => a.Concat(b).ToArray());
 
-        float[] tableOH = PadList(Table.Cards.Select(pair => pair.Value)).Select(OneHotEncoding).Aggregate((a, b) => a.Concat(b).ToArray());
+        float[] tableOH = PadList(Table.Cards.Select(pair => pair.Value), 2).Select(OneHotEncoding).Aggregate((a, b) => a.Concat(b).ToArray());
 
         float[] turnOH = OneHotEncoding(Turn, 40);
 
@@ -55,16 +55,16 @@ public record OnnxState(int MyPoints, int OtherPoints, int HandSize, int OtherHa
 
         float[] orderOH = OneHotEncoding(Order, 2);
 
-        return myPointsOH
-            .Concat(otherPointsOH)
-            .Concat(handSizeOH)
-            .Concat(otherHandSizeOH)
-            .Concat(remainingDeckCardsOH)
+        return briscolaOH
             .Concat(handOH)
+            .Concat(handSizeOH)
+            .Concat(myPointsOH)
+            .Concat(orderOH)
+            .Concat(otherHandSizeOH)
+            .Concat(otherPointsOH)
+            .Concat(remainingDeckCardsOH)
             .Concat(tableOH)
             .Concat(turnOH)
-            .Concat(briscolaOH)
-            .Concat(orderOH)
             .ToArray();
     }
 }
