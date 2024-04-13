@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbu2j05cnvwh0"]
+
+[ext_resource type="Texture2D" uid="uid://brmejtpfe2hq8" path="res://icon.png" id="1_3kybb"]
+[ext_resource type="FontFile" uid="uid://p2boinsv1oo6" path="res://assets/fonts/Kanit-Light.ttf" id="2_hg1ao"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_3kybb")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="PoIAna" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hg1ao")
+theme_override_font_sizes/font_size = 48
+text = "PoIAna"
