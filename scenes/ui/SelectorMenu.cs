@@ -13,7 +13,7 @@ public partial class SelectorMenu : TextureRect
         new ModelMeta("🤳🏻", "selfplay-best", "DQN self-play", 0.568933f),
         new ModelMeta("🌊", "amber-lake", "Long training with a sparse reward.", 0.578433f),
         new ModelMeta("🍂", "autumn-night", "Very long training against the greedy agent.", 0.680767f),
-        new ModelMeta("🦦", "mild-aaldvark", "Only the sparse reward. Greedy agent and quick training.", 0.653067f),
+        new ModelMeta("🦦", "mild-aardvark", "Only the sparse reward. Greedy agent and quick training.", 0.653067f),
         new ModelMeta("💫", "lively-cosmos", "Only the sparse reward, with a 256:256 ReLU network.", 0.633833f),
         new ModelMeta("🍃", "bumbling-leaf", "Only the sparse reward, with a 256:256 ReLU network.", 0.615367f),
         new ModelMeta("🪨", "easy-shape", "Only sparse reward and a 256:256 ReLU network. Slow annealing.", 0.612867f),
