@@ -78,6 +78,11 @@ public partial class Table : Node
         _turn = 1;
     }
 
+    private void PlayFatality()
+    {
+        GetNode<AnimationPlayer>("FatalityBackground/FatalityAnimationPlayer").Play("appear");
+    }
+
     private OnnxState State()
     {
         return new OnnxState(
@@ -177,6 +182,9 @@ public partial class Table : Node
         {
             OpponentMove();
         }
+        
+        if (_playedCards.Score() >= 20)
+            PlayFatality();
         
         _clickOverlay.InputPickable = true;
     }

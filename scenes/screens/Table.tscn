@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm26oppoddfro"]
+[gd_scene load_steps=13 format=3 uid="uid://bm26oppoddfro"]
 
 [ext_resource type="PackedScene" uid="uid://c8shxai06bcgt" path="res://scenes/cards/Deck.tscn" id="1_imupy"]
 [ext_resource type="Script" path="res://scenes/screens/Table.cs" id="1_xnrsq"]
@@ -7,9 +7,96 @@
 [ext_resource type="PackedScene" uid="uid://btfatx3csqopq" path="res://scenes/ui/Score.tscn" id="4_yem0h"]
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="6_indkq"]
 [ext_resource type="PackedScene" uid="uid://bn62lg1m612hn" path="res://scenes/ui/SmallButton.tscn" id="7_sce0h"]
+[ext_resource type="Texture2D" uid="uid://bqxff6fc7trx8" path="res://assets/fatality.webp" id="8_o2j03"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q4fh"]
 size = Vector2(1280, 719)
+
+[sub_resource type="Animation" id="Animation_nq3bn"]
+resource_name = "appear"
+length = 1.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.15, 0.25, 0.3, 0.4, 0.45, 0.5, 0.6, 0.65, 0.7, 0.75, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 4.59479, 0.574349, 1.68179, 0.329877, 1.68179, 0.435275, 2.07053, 1, 1, 1, 2.37841, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 1, 1.15),
+"transitions": PackedFloat32Array(1, 0.0915055, 1, 0.0883885),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.623529), Color(0, 0, 0, 0.623529), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Fatality:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.8, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mrhuf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.623529)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Fatality:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p48af"]
+_data = {
+"RESET": SubResource("Animation_mrhuf"),
+"appear": SubResource("Animation_nq3bn")
+}
 
 [node name="Table" type="Node"]
 script = ExtResource("1_xnrsq")
@@ -74,20 +161,6 @@ size_flags_vertical = 8
 position = Vector2(639, 360.5)
 shape = SubResource("RectangleShape2D_1q4fh")
 
-[node name="TopMargin" type="MarginContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="ToggleVisibilityButton" parent="TopMargin" instance=ExtResource("7_sce0h")]
-unique_name_in_owner = true
-layout_mode = 2
-toggle_mode = true
-text = "Toggle visibility"
-
 [node name="ModelMargin" type="MarginContainer" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
@@ -108,6 +181,53 @@ theme_type_variation = &"HeaderMedium"
 text = "Model name"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="FatalityBackground" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.623529)
+
+[node name="FatalityAnimationPlayer" type="AnimationPlayer" parent="FatalityBackground"]
+libraries = {
+"": SubResource("AnimationLibrary_p48af")
+}
+
+[node name="FatalityWrapper" type="CenterContainer" parent="FatalityBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fatality" type="TextureRect" parent="FatalityBackground/FatalityWrapper"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8_o2j03")
+expand_mode = 5
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ToggleVisibilityButton" parent="TopMargin" instance=ExtResource("7_sce0h")]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Toggle visibility"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 3
