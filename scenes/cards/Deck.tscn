@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8shxai06bcgt"]
+[gd_scene load_steps=4 format=3 uid="uid://c8shxai06bcgt"]
 
 [ext_resource type="PackedScene" uid="uid://4f4shapgkimt" path="res://scenes/cards/Card.tscn" id="1_gour4"]
 [ext_resource type="Script" path="res://scenes/cards/Deck.cs" id="1_ssog7"]
+[ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="3_ul0gi"]
 
 [node name="Deck" type="Node2D"]
 script = ExtResource("1_ssog7")
@@ -18,5 +19,6 @@ offset_left = 20.0
 offset_top = 137.0
 offset_right = 60.0
 offset_bottom = 160.0
+theme = ExtResource("3_ul0gi")
 text = "60"
 horizontal_alignment = 2

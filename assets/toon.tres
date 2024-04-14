@@ -57,5 +57,7 @@ Button/styles/focus = SubResource("StyleBoxTexture_mxeb8")
 Button/styles/hover = SubResource("StyleBoxTexture_cbjpb")
 Button/styles/normal = SubResource("StyleBoxTexture_olpxx")
 Button/styles/pressed = SubResource("StyleBoxTexture_keljs")
+Label/colors/font_shadow_color = Color(0.290196, 0.290196, 0.290196, 1)
 Label/constants/line_spacing = 0
 Label/fonts/font = ExtResource("3_3n17b")
+RichTextLabel/colors/font_shadow_color = Color(0.290196, 0.290196, 0.290196, 1)

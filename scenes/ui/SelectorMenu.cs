@@ -40,13 +40,16 @@ public partial class SelectorMenu : TextureRect
     {
         var normal = button.GetThemeStylebox(styleBoxName) as StyleBoxTexture;
         StyleBoxTexture copy = new StyleBoxTexture();
-        copy.Texture = normal!.Texture;
+        AtlasTexture texture = new AtlasTexture();
+        texture.Atlas = GD.Load<CompressedTexture2D>("res://assets/ui_sheet_red_minimal.png");
+        texture.Region = ((AtlasTexture)normal!.Texture).Region;
+        copy.Texture = texture;
         copy.TextureMarginBottom = normal.TextureMarginBottom;
         copy.TextureMarginTop = normal.TextureMarginTop;
         copy.TextureMarginLeft = normal.TextureMarginLeft;
         copy.TextureMarginRight = normal.TextureMarginRight;
-        copy.ModulateColor = color;
         copy.RegionRect = normal.RegionRect;
+        copy.ModulateColor = color;
         button.AddThemeStyleboxOverride(styleBoxName, copy);
     }
     
@@ -74,7 +77,7 @@ public partial class SelectorMenu : TextureRect
             button.AddThemeFontSizeOverride("font_size", 24);
             container.AddChild(button);
 
-            var color = Colors.Purple.Lerp(Colors.Green, (modelMeta.WinRate - min) / (max - min));
+            var color = Colors.Green.Lerp(Colors.MediumPurple, (modelMeta.WinRate - min) / (max - min));
             ModulateStyleBox(button, "normal", color);
             ModulateStyleBox(button, "focus", color);
             ModulateStyleBox(button, "pressed", color);

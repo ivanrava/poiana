@@ -114,6 +114,7 @@ horizontal_alignment = 1
 [node name="WinRate" type="RichTextLabel" parent="VBoxContainer/MarginText/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("1_ncrs2")
 theme_override_fonts/bold_font = ExtResource("5_er414")
 theme_override_font_sizes/normal_font_size = 22
 theme_override_font_sizes/bold_font_size = 26
