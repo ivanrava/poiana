@@ -45,6 +45,12 @@ public partial class Card : AnimatedSprite2D
         CardData = cardData;
     }
 
+    public void SetBack(CardData overrideCardInside)
+    {
+        CardData = overrideCardInside;
+        SetBack();
+    }
+    
     public void SetBack()
     {
         Frame = GetBackFrameIndex();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using PoIAna.scenes.ai;
 using PoIAna.scenes.autoload;
@@ -30,7 +31,7 @@ public partial class Table : Node
         return _rng.NextDouble() > 0.5;
     }
 
-    public override void _Ready()
+    public override async void _Ready()
     {
         base._Ready();
         _rng = new Random();
@@ -62,11 +63,13 @@ public partial class Table : Node
             GetTree().ChangeSceneToPacked(GD.Load<PackedScene>("res://scenes/ui/SelectorMenu.tscn"));
         
         // Initialize hands
-        _opponentHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
-        _playerHand.SetHand(_deck.Draw(), _deck.Draw(), _deck.Draw());
-
-        _clickOverlay = GetNode<Area2D>("ClickOverlay");
-        _clickOverlay.InputEvent += ClickOverlayHandler;
+        _handCover.Hide();
+        await _opponentHand.SetHand(_deck.Draw(true), _deck.Draw(true), _deck.Draw(true));
+        _handCover.Show();
+        await _playerHand.SetHand(_deck.Draw(false), _deck.Draw(false), _deck.Draw(false));
+        
+        _clickOverlay = GetNode<Area2D>("ClickOverlay"); 
+        _clickOverlay.InputEvent += ClickOverlayHandler; 
         _clickOverlay.InputPickable = false;
 
         if (!_isPlayerTurn)
@@ -102,11 +105,13 @@ public partial class Table : Node
     /**
      * Make the opponent play a card
      */
-    private void OpponentMove()
+    private async void OpponentMove()
     {
-        Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State());
+        Card animableCard;
+        Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State(), out animableCard);
         _handCover.GetNode<Card>(new NodePath(opponentCard.Name)).Hide();
-        _playedCards.PlayCardOnTable(Opponent, opponentCard.CardData);
+        await _playedCards.PlayCardOnTable(Opponent, animableCard);
+        
     }
 
     /**
@@ -123,44 +128,49 @@ public partial class Table : Node
 
         _isPlayerTurn = winner == Player;
     }
-
+    
     /**
      * Draw cards from deck
      */
-    private void DrawPhase()
+    private async Task DrawPhase()
     {
-        CardData c1 = _deck.Draw();
-        CardData c2 = _deck.Draw();
-        if (c1 == null && c2 == null)
+        Card c1 = _deck.Draw(!_isPlayerTurn);
+        if (c1 == null)
             return;
         
         if (_isPlayerTurn)
         {
-            _playerHand.AddCard(c1);
-            _opponentHand.AddCard(c2);
+            await _playerHand.AddCard(c1);
+            Card c2 = _deck.Draw(_isPlayerTurn);
+            await _opponentHand.AddCard(c2);
+            foreach (var node in _handCover.GetChildren())
+            {
+                var child = (Card)node;
+                child.Show();
+            }
         }
         else
         {
-            _opponentHand.AddCard(c1);
-            _playerHand.AddCard(c2);
-        }
-
-        foreach (var node in _handCover.GetChildren())
-        {
-            var child = (Card)node;
-            child.Show();
+            await _opponentHand.AddCard(c1);
+            foreach (var node in _handCover.GetChildren())
+            {
+                var child = (Card)node;
+                child.Show();
+            }
+            Card c2 = _deck.Draw(_isPlayerTurn);
+            await _playerHand.AddCard(c2);
         }
 
         _turn++;
     }
-
-    private void ClickOverlayHandler(Node viewport, InputEvent @event, long shapeidx)
+    
+    private async void ClickOverlayHandler(Node viewport, InputEvent @event, long shapeidx)
     {
         if (@event is InputEventMouseButton && @event.IsReleased())
         {
             ResolvePlayedCards();
-            DrawPhase();
-
+            await DrawPhase();
+            
             if (!_isPlayerTurn)
             {
                 OpponentMove();
@@ -172,11 +182,11 @@ public partial class Table : Node
             GetViewport().SetInputAsHandled();
         }
     }
-
-    private void HandleHandCardSelected(Card card)
+    
+    private async void HandleHandCardSelected(Card card)
     {
         _playerHand.CardSelected -= HandleHandCardSelected;
-        _playedCards.PlayCardOnTable(Player, card.CardData);
+        await _playedCards.PlayCardOnTable(Player, card);
 
         if (_isPlayerTurn)
         {

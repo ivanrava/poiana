@@ -41,12 +41,24 @@ public partial class Deck : Node2D
             _remainingCards.Hide();
         }
     }
-
-    public new CardData Draw()
+    
+    public new Card Draw(bool hide) 
     {
-        CardData drawn = _deck.TryDraw();
-        UpdateRemainingCardsInterface();
-        return drawn;
+        CardData drawn = _deck.TryDraw(); 
+        if (drawn == null) 
+            return null;
+        
+        var animableCard = (Card)GD.Load<PackedScene>("res://scenes/cards/Card.tscn").Instantiate(); 
+        if (hide)
+            animableCard.SetBack(drawn);
+        else 
+            animableCard.SetCard(drawn); 
+        AddChild(animableCard);
+        animableCard.Position = _deckBackSprite.Position;
+        animableCard.Rotation = _deckBackSprite.Rotation;
+        
+        UpdateRemainingCardsInterface(); 
+        return animableCard; 
     }
 
     public int RemainingCards()
@@ -98,7 +110,6 @@ internal class DeckBriscola : IDeck
         CardData card = _cards[0];
         _cards.RemoveAt(0);
         return card;
-
     }
 
     public CardData PeekLast()

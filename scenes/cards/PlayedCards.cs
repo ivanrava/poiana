@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using PoIAna.scenes.autoload;
 
@@ -10,44 +11,51 @@ public partial class PlayedCards : Node2D
 {
     private PackedScene _cardScene = GD.Load<PackedScene>("res://scenes/cards/Card.tscn");
     private readonly Random _random = new();
-    private Card _lastCard;
+    private Vector2 _otherCardPosition = Vector2.Zero;
     public readonly List<KeyValuePair<Player, CardData>> Cards = new();
-
-    public void PlayCardOnTable(Player player, CardData cardData)
+    private readonly List<Card> _cardSprites = new();
+    
+    public async Task PlayCardOnTable(Player player, Card card)
     {
-        Cards.Add(new KeyValuePair<Player, CardData>(player, cardData));
-        InstantiatePlayedCard(cardData);
+        const float speed = 0.4f;
+        Cards.Add(new KeyValuePair<Player, CardData>(player, card.CardData));
+        Tween tween = CreateTween();
+        tween.SetParallel();
+        _cardSprites.Add(card);
+        _otherCardPosition = GetDodgePosition();
+        tween.SetEase(Tween.EaseType.OutIn);
+        tween.TweenProperty(card, "global_position", _otherCardPosition, speed);
+        var rot = Mathf.LerpAngle(card.Rotation, GetDodgeRotation(), 1);
+        tween.TweenProperty(card, "rotation", rot, speed);
+        await ToSignal(tween, "finished");
+        
     }
-
-    private void InstantiatePlayedCard(CardData cardData)
+    
+    private Vector2 GetDodgePosition()
     {
-        Card card = (Card)_cardScene.Instantiate();
-        card.SetCard(cardData);
-        AddChild(card);
-        DodgeCard(card);
+        return _otherCardPosition == Vector2.Zero ? GlobalPosition : _otherCardPosition + Vector2.Left * 100;
     }
-
-    private void DodgeCard(Card card)
+    
+    private float GetDodgeRotation()
     {
-        card.Position = _lastCard == null ? card.Position : _lastCard.Position + Vector2.Left * 100;
-        card.Rotation = _random.NextSingle() * Mathf.Pi * 2;
-        _lastCard = card;
+        return _random.NextSingle() * Mathf.Pi * 2;
     }
-
+    
     public void Clean()
     {
-        foreach (var child in GetChildren())
+        foreach (var child in _cardSprites)
         {
             child.QueueFree();
         }
-
+        
+        _cardSprites.Clear();
         Cards.Clear();
-        _lastCard = null;
+        _otherCardPosition = Vector2.Zero;
     }
-
+    
     public int Score()
     {
-        return GetChildren().Cast<Card>().Sum(card => new BriscolaScore().Score(card.CardData));
+        return _cardSprites.Sum(card => new BriscolaScore().Score(card.CardData));
     }
 
     public Player Winner()
