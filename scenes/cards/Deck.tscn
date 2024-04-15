@@ -8,7 +8,7 @@
 script = ExtResource("1_ssog7")
 
 [node name="Briscola" parent="." instance=ExtResource("1_gour4")]
-position = Vector2(-90, 0)
+position = Vector2(-8.22544e-06, -134)
 rotation = 1.5708
 
 [node name="Back" parent="." instance=ExtResource("1_gour4")]
