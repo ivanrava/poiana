@@ -25,6 +25,7 @@ public partial class Table : Node
     private static readonly Player Opponent = new(1);
     private readonly Dictionary<Player, Label> _scores = new();
     private Node2D _handCover;
+    private GameGlobals _autoload;
 
     private bool RandomBool()
     {
@@ -36,7 +37,8 @@ public partial class Table : Node
         base._Ready();
         _rng = new Random();
 
-        var modelMeta = GetNode<GameGlobals>("/root/GameGlobals").ModelMeta;
+        _autoload = GetNode<GameGlobals>("/root/GameGlobals");
+        var modelMeta = _autoload.ModelMeta;
         GetNode<Label>("%ModelName").Text = modelMeta.DisplayName;
         _opponentStrategy = new OnnxOpponentStrategy(modelMeta.Filename);
         _isPlayerTurn = RandomBool();
@@ -83,6 +85,8 @@ public partial class Table : Node
 
     private void PlayFatality()
     {
+        if (!_autoload.IsFatalityEnabled)
+            return;
         GetNode<AnimationPlayer>("FatalityBackground/FatalityAnimationPlayer").Play("appear");
     }
 
@@ -97,7 +101,7 @@ public partial class Table : Node
             _opponentHand,
             _playedCards,
             _turn,
-            GetNode<GameGlobals>("/root/GameGlobals").Briscola,
+            _autoload.Briscola,
             _isPlayerTurn ? 1 : 0
         );
     }
