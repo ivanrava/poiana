@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dvdg46jtwxd16"]
+
+[node name="HBoxContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="LeftCopyright" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+offset_right = 249.0
+grow_vertical = 0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="GodotAuthor" type="Label" parent="LeftCopyright"]
+layout_mode = 2
+text = "2024, Ivan Ravasi (Godot frontend)"
+horizontal_alignment = 1
+
+[node name="RightCopyright" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -407.0
+offset_top = -29.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="DRLAuthors" type="Label" parent="RightCopyright"]
+layout_mode = 2
+text = "2024, Ivan Ravasi & Davide Zambelli (DRL model training)"
+horizontal_alignment = 1

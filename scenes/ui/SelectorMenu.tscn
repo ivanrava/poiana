@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_ncrs2"]
 [ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="2_yarvv"]
 [ext_resource type="Script" path="res://scenes/ui/SelectorMenu.cs" id="3_npfak"]
-[ext_resource type="PackedScene" uid="uid://bbu2j05cnvwh0" path="res://scenes/ui/Logo.tscn" id="4_qnvel"]
-[ext_resource type="PackedScene" uid="uid://bn62lg1m612hn" path="res://scenes/ui/SmallButton.tscn" id="4_vu0pk"]
+[ext_resource type="PackedScene" uid="uid://ysl8mqicle4x" path="res://scenes/ui/SubMenuHeader.tscn" id="4_k0ey2"]
 [ext_resource type="FontFile" uid="uid://xlhdua8hd8aw" path="res://assets/fonts/Kanit-Bold.ttf" id="5_er414"]
+[ext_resource type="PackedScene" uid="uid://dvdg46jtwxd16" path="res://scenes/ui/CopyrightBottomLong.tscn" id="7_di2t3"]
 [ext_resource type="FontFile" uid="uid://ddjwm5lkljfxk" path="res://assets/fonts/Kanit-Italic.ttf" id="7_jg1w3"]
 
 [node name="SelectorMenu" type="TextureRect"]
@@ -28,42 +28,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="Header" parent="VBoxContainer" instance=ExtResource("4_k0ey2")]
 layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 8
-
-[node name="Header" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Back" parent="VBoxContainer/MarginContainer/Header" instance=ExtResource("4_vu0pk")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-text = "Back"
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="Logo" parent="VBoxContainer/MarginContainer/Header/MarginContainer" instance=ExtResource("4_qnvel")]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="MarginContainer" parent="VBoxContainer/MarginContainer/Header/MarginContainer/Logo" index="1"]
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="Title" type="Label" parent="VBoxContainer/MarginContainer/Header"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("5_er414")
-theme_override_font_sizes/font_size = 56
-text = "Difficulty"
 
 [node name="MarginMain" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -131,42 +97,5 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
-[node name="HBoxContainer" type="Control" parent="VBoxContainer"]
+[node name="Copyright" parent="VBoxContainer" instance=ExtResource("7_di2t3")]
 layout_mode = 2
-
-[node name="LeftCopyright" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -29.0
-offset_right = 249.0
-grow_vertical = 0
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_bottom = 8
-
-[node name="GodotAuthor" type="Label" parent="VBoxContainer/HBoxContainer/LeftCopyright"]
-layout_mode = 2
-text = "2024, Ivan Ravasi (Godot frontend)"
-horizontal_alignment = 1
-
-[node name="RightCopyright" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -407.0
-offset_top = -29.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 8
-
-[node name="DRLAuthors" type="Label" parent="VBoxContainer/HBoxContainer/RightCopyright"]
-layout_mode = 2
-text = "2024, Ivan Ravasi & Davide Zambelli (DRL model training)"
-horizontal_alignment = 1
-
-[editable path="VBoxContainer/MarginContainer/Header/MarginContainer/Logo"]

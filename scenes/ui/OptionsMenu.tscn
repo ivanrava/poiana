@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqk4lm3qtljo5"]
+
+[ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_041ia"]
+[ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="2_7fq20"]
+[ext_resource type="Script" path="res://scenes/ui/OptionsMenu.cs" id="3_6rdvt"]
+[ext_resource type="PackedScene" uid="uid://ysl8mqicle4x" path="res://scenes/ui/SubMenuHeader.tscn" id="4_0dikj"]
+[ext_resource type="PackedScene" uid="uid://dvdg46jtwxd16" path="res://scenes/ui/CopyrightBottomLong.tscn" id="7_ri3nh"]
+
+[node name="SelectorMenu" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_041ia")
+texture = ExtResource("2_7fq20")
+expand_mode = 2
+script = ExtResource("3_6rdvt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Header" parent="VBoxContainer" instance=ExtResource("4_0dikj")]
+layout_mode = 2
+
+[node name="Title" parent="VBoxContainer/Header/Header" index="2"]
+text = "Options"
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Row1" type="HBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnableFatality" type="CheckButton" parent="VBoxContainer/CenterContainer/VBoxContainer/Row1"]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="EnableFatalityLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Fatality animation"
+
+[node name="Row1Hint" type="MarginContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row1Hint"]
+layout_mode = 2
+text = "Plays an animation whenever a considerable amount of points is gained / lost."
+
+[node name="Row2" type="HBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnableAudio" type="CheckButton" parent="VBoxContainer/CenterContainer/VBoxContainer/Row2"]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="AudioLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Audio effects"
+
+[node name="Row2Hint" type="MarginContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row2Hint"]
+layout_mode = 2
+text = "Plays some audio effects whenever a card is drawn, played, lost, gained."
+
+[node name="Copyright" parent="VBoxContainer" instance=ExtResource("7_ri3nh")]
+layout_mode = 2
+
+[editable path="VBoxContainer/Header"]
+[editable path="VBoxContainer/Header/Header/MarginContainer/Logo"]

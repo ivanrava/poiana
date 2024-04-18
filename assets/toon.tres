@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://ds7v8dbt8wvln"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://ds7v8dbt8wvln"]
 
 [ext_resource type="FontFile" uid="uid://booeyyn3yrebu" path="res://assets/fonts/Kanit-Medium.ttf" id="1_fojq5"]
 [ext_resource type="Texture2D" uid="uid://dythl6rw23afq" path="res://assets/ui_sheet_blue.png" id="1_ryebd"]
@@ -51,12 +51,31 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcry6"]
+atlas = ExtResource("1_ryebd")
+region = Rect2(381, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umx7f"]
+atlas = SubResource("AtlasTexture_wcry6")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvvvf"]
+atlas = ExtResource("1_ryebd")
+region = Rect2(381, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfsv3"]
+atlas = SubResource("AtlasTexture_rvvvf")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21203"]
+
 [resource]
 Button/fonts/font = ExtResource("1_fojq5")
 Button/styles/focus = SubResource("StyleBoxTexture_mxeb8")
 Button/styles/hover = SubResource("StyleBoxTexture_cbjpb")
 Button/styles/normal = SubResource("StyleBoxTexture_olpxx")
 Button/styles/pressed = SubResource("StyleBoxTexture_keljs")
+CheckButton/icons/checked = SubResource("AtlasTexture_umx7f")
+CheckButton/icons/unchecked = SubResource("AtlasTexture_vfsv3")
+CheckButton/styles/focus = SubResource("StyleBoxEmpty_21203")
 Label/colors/font_shadow_color = Color(0.290196, 0.290196, 0.290196, 1)
 Label/constants/line_spacing = 0
 Label/fonts/font = ExtResource("3_3n17b")

@@ -58,11 +58,6 @@ public partial class SelectorMenu : TextureRect
         base._Ready();
         _modelMetas.Sort((meta1, meta2) => meta2.WinRate.CompareTo(meta1.WinRate));
         var container = GetNode<HFlowContainer>("%HFlowContainer");
-        GetNode<Button>("%Back").ButtonUp += () =>
-        {
-            var gameScene = GD.Load<PackedScene>("res://scenes/ui/MainMenu.tscn");
-            GetTree().ChangeSceneToPacked(gameScene);
-        };
         GetNode<Button>("%Play").ButtonUp += () =>
         {
             Play();
