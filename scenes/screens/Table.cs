@@ -26,6 +26,8 @@ public partial class Table : Node
     private readonly Dictionary<Player, Label> _scores = new();
     private Node2D _handCover;
     private GameGlobals _autoload;
+    private AudioStreamPlayer _audioPlayCard;
+    private AudioStreamPlayer _audioClearTable;
 
     private bool RandomBool()
     {
@@ -51,6 +53,11 @@ public partial class Table : Node
         _deck = GetNode<Deck>("Deck");
         _playedCards = GetNode<PlayedCards>("PlayedCards");
         
+        _audioPlayCard = GetNode<AudioStreamPlayer>("AudioPlayCard");
+        _audioClearTable = GetNode<AudioStreamPlayer>("AudioClearTable");
+        
+        AudioServer.SetBusMute(1, !_autoload.IsAudioEnabled);
+        
         _handCover = GetNode<Node2D>("HandCover");
         foreach (var backCover in _handCover.GetChildren())
         {
@@ -66,8 +73,10 @@ public partial class Table : Node
         
         // Initialize hands
         _handCover.Hide();
+        _audioPlayCard.Play();
         await _opponentHand.SetHand(_deck.Draw(true), _deck.Draw(true), _deck.Draw(true));
         _handCover.Show();
+        _audioPlayCard.Play();
         await _playerHand.SetHand(_deck.Draw(false), _deck.Draw(false), _deck.Draw(false));
         
         _clickOverlay = GetNode<Area2D>("ClickOverlay"); 
@@ -114,8 +123,8 @@ public partial class Table : Node
         Card animableCard;
         Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State(), out animableCard);
         _handCover.GetNode<Card>(new NodePath(opponentCard.Name)).Hide();
+        _audioPlayCard.Play();
         await _playedCards.PlayCardOnTable(Opponent, animableCard);
-        
     }
 
     /**
@@ -128,6 +137,7 @@ public partial class Table : Node
         var winner = _playedCards.Winner();
         _scores[winner].Text = (int.Parse(_scores[winner].Text) + _playedCards.Score()).ToString();
         
+        _audioClearTable.Play();
         _playedCards.Clean();
 
         _isPlayerTurn = winner == Player;
@@ -141,10 +151,12 @@ public partial class Table : Node
         Card c1 = _deck.Draw(!_isPlayerTurn);
         if (c1 == null)
             return;
+        _audioPlayCard.Play();
         
         if (_isPlayerTurn)
         {
             await _playerHand.AddCard(c1);
+            _audioPlayCard.Play();
             Card c2 = _deck.Draw(_isPlayerTurn);
             await _opponentHand.AddCard(c2);
             foreach (var node in _handCover.GetChildren())
@@ -161,6 +173,7 @@ public partial class Table : Node
                 var child = (Card)node;
                 child.Show();
             }
+            _audioPlayCard.Play();
             Card c2 = _deck.Draw(_isPlayerTurn);
             await _playerHand.AddCard(c2);
         }
@@ -190,6 +203,7 @@ public partial class Table : Node
     private async void HandleHandCardSelected(Card card)
     {
         _playerHand.CardSelected -= HandleHandCardSelected;
+        _audioPlayCard.Play();
         await _playedCards.PlayCardOnTable(Player, card);
 
         if (_isPlayerTurn)
