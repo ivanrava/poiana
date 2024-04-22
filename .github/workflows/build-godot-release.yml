@@ -11,10 +11,7 @@ jobs:
   Godot-Butler:
     runs-on: ubuntu-20.04
     container:
-      image: barichello/godot-ci:4.2.1
-    strategy:
-      matrix:
-        platform: [windows]
+      image: barichello/godot-ci:mono-4.2.1
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
