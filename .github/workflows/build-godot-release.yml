@@ -37,11 +37,11 @@ jobs:
           godot --headless -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
       - name: Zip Windows release
         run: |
-          zip build/windows/${WINDOWS_RELEASE_FILENAME} build/windows/*
+          zip -r $WINDOWS_RELEASE_FILENAME build/windows/*
       - name: Create release ${{ github.ref_name }}
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/windows/$WINDOWS_RELEASE_FILENAME"
+          artifacts: "$WINDOWS_RELEASE_FILENAME"
           tag: ${{ github.ref_name }}
           #bodyFile: "body.md"
       - name: Publish to Itch.io with Butler
@@ -51,5 +51,5 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: poiana
           ITCH_USER: ivanrava
-          PACKAGE: build/windows/${WINDOWS_RELEASE_FILENAME}
+          PACKAGE: $WINDOWS_RELEASE_FILENAME
           VERSION: ${{ github.ref_name }}
