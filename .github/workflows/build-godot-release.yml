@@ -10,6 +10,8 @@ env:
 jobs:
   Godot-Butler:
     runs-on: ubuntu-20.04
+    permissions:
+      contents: write
     container:
       image: barichello/godot-ci:mono-4.2.1
     steps:
