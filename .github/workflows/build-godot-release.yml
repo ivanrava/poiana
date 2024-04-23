@@ -21,17 +21,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "6.0.x"
-      - name: Setup WINE and rcedit 🍷
-        run: |
-          dpkg --add-architecture i386 && apt-get update && apt-get install -y wine-stable && apt-get install -y wine32
-          chown root:root -R ~
-          wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
-          mkdir -v -p ~/.local/share/rcedit
-          mv rcedit-x64.exe ~/.local/share/rcedit
-          apt install libxcursor-dev libxinerama-dev libxrandr-dev libxi6 libgl1 -y
-          godot --no-window -q
-          echo 'export/windows/wine = "/usr/bin/wine"' >> ~/.config/godot/editor_settings-3.tres
-          echo 'export/windows/rcedit = "/github/home/.local/share/rcedit/rcedit-x64.exe"' >> ~/.config/godot/editor_settings-3.tres
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
@@ -40,6 +29,10 @@ jobs:
         run: |
           mkdir -v -p build/windows
           godot --headless --verbose --export-release "Windows Desktop" build/windows/$EXPORT_NAME.exe
+      - name: Godot Icon
+        run: |
+          wget https://raw.githubusercontent.com/pkowal1982/godoticon/master/ReplaceIcon.gd
+          godot -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
       - name: Zip Windows release
         run: |
           zip build/windows/${WINDOWS_RELEASE_FILENAME} build/windows/*
