@@ -1,14 +1,14 @@
-name: Build and deploy to Itch
+name: Build release and deploy to Itch
 
 on: [push]
 
 env:
   GODOT_VERSION: 4.2.1
   EXPORT_NAME: PoIAna
-  WINDOWS_RELEASE_FILENAME: PoIAna.windows-amd64.zip
+  WINDOWS_RELEASE_FILENAME: PoIAna.windows-x86_64.zip
 
 jobs:
-  Godot-Butler:
+  export-windows-butler:
     runs-on: ubuntu-20.04
     permissions:
       contents: write
@@ -37,13 +37,14 @@ jobs:
           godot --headless -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
       - name: Zip Windows release
         run: |
-          zip -r PoIAna.windows-amd64.zip build/windows/*
-          ls -la
-          pwd
+          cd build/windows
+          zip -r $WINDOWS_RELEASE_FILENAME *
+          cd ../..
+          mv build/windows/$WINDOWS_RELEASE_FILENAME .
       - name: Create release ${{ github.ref_name }}
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "PoIAna.windows-amd64.zip"
+          artifacts: ${{ env.WINDOWS_RELEASE_FILENAME }}
           tag: ${{ github.ref_name }}
           #bodyFile: "body.md"
       - name: Publish to Itch.io with Butler
@@ -53,5 +54,5 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: poiana
           ITCH_USER: ivanrava
-          PACKAGE: "PoIAna.windows-amd64.zip"
+          PACKAGE: ${{ env.WINDOWS_RELEASE_FILENAME }}
           VERSION: ${{ github.ref_name }}
