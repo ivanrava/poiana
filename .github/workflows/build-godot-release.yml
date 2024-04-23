@@ -1,6 +1,10 @@
 name: Build release and deploy to Itch
 
-on: [push]
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:
+      - '*' # Push events to every tag not containing /
 
 env:
   GODOT_VERSION: 4.2.1
@@ -45,7 +49,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: ${{ env.WINDOWS_RELEASE_FILENAME }}
-          tag: ${{ github.ref_name }}
       - name: Publish to Itch.io with Butler
         uses: manleydev/butler-publish-itchio-action@v1.0.3
         env:
