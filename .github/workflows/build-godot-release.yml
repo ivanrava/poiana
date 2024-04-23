@@ -32,7 +32,7 @@ jobs:
       - name: Godot Icon
         run: |
           wget https://raw.githubusercontent.com/pkowal1982/godoticon/master/ReplaceIcon.gd
-          godot -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
+          godot --headless -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
       - name: Zip Windows release
         run: |
           zip build/windows/${WINDOWS_RELEASE_FILENAME} build/windows/*
