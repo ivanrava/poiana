@@ -1,5 +1,7 @@
 name: Build release and deploy to Itch
 
+run-name: Build and deploy ${{ github.ref_name }}
+
 on:
   push:
     # Pattern matched against refs/tags
