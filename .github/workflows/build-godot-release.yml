@@ -46,7 +46,6 @@ jobs:
         with:
           artifacts: ${{ env.WINDOWS_RELEASE_FILENAME }}
           tag: ${{ github.ref_name }}
-          #bodyFile: "body.md"
       - name: Publish to Itch.io with Butler
         uses: manleydev/butler-publish-itchio-action@v1.0.3
         env:
