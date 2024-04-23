@@ -39,6 +39,7 @@ jobs:
         run: |
           zip -r $WINDOWS_RELEASE_FILENAME build/windows/*
           ls -la
+          pwd
       - name: Create release ${{ github.ref_name }}
         uses: ncipollo/release-action@v1
         with:
