@@ -12,6 +12,11 @@ public partial class MainMenu : TextureRect
             var gameScene = GD.Load<PackedScene>("res://scenes/ui/SelectorMenu.tscn");
             GetTree().ChangeSceneToPacked(gameScene);
         };
+        GetNode<Button>("%Rules").ButtonUp += () =>
+        {
+            var gameScene = GD.Load<PackedScene>("res://scenes/ui/Rules.tscn");
+            GetTree().ChangeSceneToPacked(gameScene);
+        };
         GetNode<Button>("%Options").ButtonUp += () =>
         {
             var optionsScene = GD.Load<PackedScene>("res://scenes/ui/OptionsMenu.tscn");

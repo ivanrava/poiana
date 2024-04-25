@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://ds7v8dbt8wvln"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://ds7v8dbt8wvln"]
 
 [ext_resource type="FontFile" uid="uid://booeyyn3yrebu" path="res://assets/fonts/Kanit-Medium.ttf" id="1_fojq5"]
 [ext_resource type="Texture2D" uid="uid://dythl6rw23afq" path="res://assets/ui_sheet_blue.png" id="1_ryebd"]
 [ext_resource type="FontFile" uid="uid://p2boinsv1oo6" path="res://assets/fonts/Kanit-Light.ttf" id="3_3n17b"]
+[ext_resource type="FontFile" uid="uid://xlhdua8hd8aw" path="res://assets/fonts/Kanit-Bold.ttf" id="4_6wais"]
+[ext_resource type="FontFile" uid="uid://ddjwm5lkljfxk" path="res://assets/fonts/Kanit-Italic.ttf" id="5_w2eao"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3yj7x"]
 atlas = ExtResource("1_ryebd")
@@ -80,3 +82,5 @@ Label/colors/font_shadow_color = Color(0.290196, 0.290196, 0.290196, 1)
 Label/constants/line_spacing = 0
 Label/fonts/font = ExtResource("3_3n17b")
 RichTextLabel/colors/font_shadow_color = Color(0.290196, 0.290196, 0.290196, 1)
+RichTextLabel/fonts/bold_font = ExtResource("4_6wais")
+RichTextLabel/fonts/italics_font = ExtResource("5_w2eao")

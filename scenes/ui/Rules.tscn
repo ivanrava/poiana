@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://ev84tkur6yyl"]
+
+[ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_4q3wm"]
+[ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="2_rckjy"]
+[ext_resource type="FontFile" uid="uid://p2boinsv1oo6" path="res://assets/fonts/Kanit-Light.ttf" id="4_0tyen"]
+[ext_resource type="PackedScene" uid="uid://ysl8mqicle4x" path="res://scenes/ui/SubMenuHeader.tscn" id="4_fjkfo"]
+[ext_resource type="PackedScene" uid="uid://dvdg46jtwxd16" path="res://scenes/ui/CopyrightBottomLong.tscn" id="5_etxi7"]
+
+[node name="SelectorMenu" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4q3wm")
+texture = ExtResource("2_rckjy")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Header" parent="VBoxContainer" instance=ExtResource("4_fjkfo")]
+layout_mode = 2
+
+[node name="Title" parent="VBoxContainer/Header/Header" index="2"]
+text = "Rules"
+
+[node name="Body" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="Scroller" type="ScrollContainer" parent="VBoxContainer/Body"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/Scroller"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="RulesText" type="RichTextLabel" parent="VBoxContainer/Body/Scroller/MarginContainer"]
+layout_mode = 2
+theme_override_constants/line_separation = -8
+theme_override_fonts/normal_font = ExtResource("4_0tyen")
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "[b]Briscola[/b] is a popular italian card game.
+It is played with a deck of 40 cards, comprised of 4 different suits: [i]Coins[/i], [i]Batons[/i], [i]Cups[/i] and [i]Swords[/i]. Therefore, each suit has 10 cards (and each card has a different value in points): [i]Ace[/i] (11 points), [i]Two[/i] (0), [i]Three[/i] (10), [i]Four[/i] (0), [i]Five[/i] (0), [i]Six[/i] (0), [i]Seven[/i] (0), [i]Jack[/i] (2), [i]Knight[/i] (3), [i]King[/i] (4).
+
+The game starts with 3 cards drawn by each player.
+The remaining cards stay in the deck face down, except for one card which is revealed and put face-up back into the bottom of the deck.
+The revealed card suit is the suit of [i]\"briscola\"[/i].
+
+The turn player plays one card from his hand, then the other one plays another card from his hand.
+The winner is declared as follows:
+- If the suits are the same, wins the player which put down the highest number of points (when the points are even, wins the card with the highest written value, e.g. the Four wins against the Two).
+- If the suits are NOT the same, wins the first player.
+
+There is an exception, however: whenever a player plays a card with the suit of \"briscola\", then that player wins that turn regardless of the above rules, unless the opponent plays an higher briscola.
+
+The winner takes the two cards played and gains the sum of their points.
+As the total number of points is 120, [b]a player wins when he/she passes the 60 points threshold[/b].
+A draw is reached when both players are unable to pass the 60 points threshold."
+fit_content = true
+
+[node name="Copyright" parent="VBoxContainer" instance=ExtResource("5_etxi7")]
+layout_mode = 2
+
+[editable path="VBoxContainer/Header"]
+[editable path="VBoxContainer/Header/Header/MarginContainer/Logo"]
