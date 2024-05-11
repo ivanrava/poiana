@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Godot;
 using Microsoft.ML.OnnxRuntime;
 
@@ -9,13 +10,7 @@ public class OnnxOpponentStrategy : OpponentStrategy
 {
     private int Idx(OnnxState state)
     {
-        // Get path to model to create inference session.
-        var modelPath = "./models/" + ModelFilename;
-
-        // Create an InferenceSession from the Model Path.
-        // Creating and loading sessions are expensive per request.
-        // They better be cached
-        using var session = new InferenceSession(modelPath);
+        using var session = new InferenceSession(FileAccess.GetFileAsBytes("res://models/"+ModelFilename));
 
         // create input tensor (nlp example)
         // using var inputOrtValue = OrtValue.CreateTensorWithEmptyStrings(OrtAllocator.DefaultInstance, new long[] { 1, 1 });
