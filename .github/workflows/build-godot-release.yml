@@ -39,7 +39,7 @@ jobs:
           mkdir -v -p build/win64
           mkdir -v -p build/win32
           godot --headless --verbose --export-debug "Windows Desktop x86_64" build/win64/$EXPORT_NAME.exe
-          godot --headless --verbose --export-debug "Windows Desktop x86_32" build/win64/$EXPORT_NAME.exe
+          godot --headless --verbose --export-debug "Windows Desktop x86_32" build/win32/$EXPORT_NAME.exe
       - name: Godot Icon
         run: |
           wget https://raw.githubusercontent.com/pkowal1982/godoticon/master/ReplaceIcon.gd
