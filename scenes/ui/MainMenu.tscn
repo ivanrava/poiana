@@ -34,6 +34,13 @@ theme_override_constants/separation = 40
 [node name="Logo" parent="VBoxContainer" instance=ExtResource("4_nrsr0")]
 layout_mode = 2
 
+[node name="MarginContainer" parent="VBoxContainer/Logo" index="1"]
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PoIAna" parent="VBoxContainer/Logo/MarginContainer" index="0"]
+theme_override_font_sizes/font_size = 72
+
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 64
@@ -96,3 +103,5 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Made in partial fulfillment of the AI course exam requirements @ University of Brescia"
 horizontal_alignment = 1
+
+[editable path="VBoxContainer/Logo"]

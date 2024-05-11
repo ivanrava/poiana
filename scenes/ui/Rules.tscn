@@ -56,11 +56,11 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 theme_override_constants/line_separation = -8
 theme_override_fonts/normal_font = ExtResource("4_0tyen")
-theme_override_font_sizes/normal_font_size = 24
-theme_override_font_sizes/bold_font_size = 24
-theme_override_font_sizes/italics_font_size = 24
-theme_override_font_sizes/bold_italics_font_size = 24
-theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
+theme_override_font_sizes/italics_font_size = 18
+theme_override_font_sizes/bold_italics_font_size = 18
+theme_override_font_sizes/mono_font_size = 18
 bbcode_enabled = true
 text = "[b]Briscola[/b] is a popular italian card game.
 It is played with a deck of 40 cards, comprised of 4 different suits: [i]Coins[/i], [i]Batons[/i], [i]Cups[/i] and [i]Swords[/i]. Therefore, each suit has 10 cards (and each card has a different value in points): [i]Ace[/i] (11 points), [i]Two[/i] (0), [i]Three[/i] (10), [i]Four[/i] (0), [i]Five[/i] (0), [i]Six[/i] (0), [i]Seven[/i] (0), [i]Jack[/i] (2), [i]Knight[/i] (3), [i]King[/i] (4).

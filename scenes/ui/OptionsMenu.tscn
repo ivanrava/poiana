@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqk4lm3qtljo5"]
+[gd_scene load_steps=7 format=3 uid="uid://cqk4lm3qtljo5"]
 
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="1_041ia"]
 [ext_resource type="Texture2D" uid="uid://de0hynaddkua5" path="res://assets/sunset.png" id="2_7fq20"]
 [ext_resource type="Script" path="res://scenes/ui/OptionsMenu.cs" id="3_6rdvt"]
 [ext_resource type="PackedScene" uid="uid://ysl8mqicle4x" path="res://scenes/ui/SubMenuHeader.tscn" id="4_0dikj"]
+[ext_resource type="PackedScene" uid="uid://4f4shapgkimt" path="res://scenes/cards/Card.tscn" id="5_nu5lp"]
 [ext_resource type="PackedScene" uid="uid://dvdg46jtwxd16" path="res://scenes/ui/CopyrightBottomLong.tscn" id="7_ri3nh"]
 
 [node name="SelectorMenu" type="TextureRect"]
@@ -32,61 +33,283 @@ layout_mode = 2
 [node name="Title" parent="VBoxContainer/Header/Header" index="2"]
 text = "Options"
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
-layout_mode = 2
+theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Row1" type="HBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="EnableFatality" type="CheckButton" parent="VBoxContainer/CenterContainer/VBoxContainer/Row1"]
+[node name="Row1" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnableFatality" type="CheckButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/Row1"]
 unique_name_in_owner = true
 layout_mode = 2
 flat = true
 
-[node name="EnableFatalityLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row1"]
+[node name="EnableFatalityLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/Row1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Fatality animation"
 
-[node name="Row1Hint" type="MarginContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="Row1Hint" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 16
 
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row1Hint"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/Row1Hint"]
 layout_mode = 2
 text = "Plays an animation whenever a considerable amount of points is gained / lost."
 
-[node name="Row2" type="HBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="EnableAudio" type="CheckButton" parent="VBoxContainer/CenterContainer/VBoxContainer/Row2"]
+[node name="Row2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="EnableAudio" type="CheckButton" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Row2"]
 unique_name_in_owner = true
 layout_mode = 2
 flat = true
 
-[node name="AudioLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row2"]
+[node name="AudioLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Row2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Audio effects"
 
-[node name="Row2Hint" type="MarginContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="Row2Hint" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 16
 
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/Row2Hint"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Row2Hint"]
 layout_mode = 2
 text = "Plays some audio effects whenever a card is drawn, played, lost, gained."
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Coins" type="Marker2D" parent="VBoxContainer/HBoxContainer2/CenterContainer"]
+
+[node name="Card1" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(195, 82)
+scale = Vector2(0.5, 0.5)
+
+[node name="Card2" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(285, 82)
+scale = Vector2(0.5, 0.5)
+frame = 1
+
+[node name="Card3" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(375, 82)
+scale = Vector2(0.5, 0.5)
+frame = 2
+
+[node name="Card4" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(465, 82)
+scale = Vector2(0.5, 0.5)
+frame = 3
+
+[node name="Card5" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(555, 82)
+scale = Vector2(0.5, 0.5)
+frame = 4
+
+[node name="Card6" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(645, 82)
+scale = Vector2(0.5, 0.5)
+frame = 5
+
+[node name="Card7" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(735, 82)
+scale = Vector2(0.5, 0.5)
+frame = 6
+
+[node name="Card8" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(825, 82)
+scale = Vector2(0.5, 0.5)
+frame = 10
+
+[node name="Card9" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(915, 82)
+scale = Vector2(0.5, 0.5)
+frame = 11
+
+[node name="Card10" parent="VBoxContainer/HBoxContainer2/CenterContainer/Coins" instance=ExtResource("5_nu5lp")]
+position = Vector2(1005, 82)
+scale = Vector2(0.5, 0.5)
+frame = 12
+
+[node name="Batons" type="Marker2D" parent="VBoxContainer/HBoxContainer2/CenterContainer"]
+position = Vector2(40, 80)
+
+[node name="Card1" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(195, 82)
+scale = Vector2(0.5, 0.5)
+frame = 13
+
+[node name="Card2" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(285, 82)
+scale = Vector2(0.5, 0.5)
+frame = 14
+
+[node name="Card3" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(375, 82)
+scale = Vector2(0.5, 0.5)
+frame = 15
+
+[node name="Card4" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(465, 82)
+scale = Vector2(0.5, 0.5)
+frame = 16
+
+[node name="Card5" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(555, 82)
+scale = Vector2(0.5, 0.5)
+frame = 17
+
+[node name="Card6" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(645, 82)
+scale = Vector2(0.5, 0.5)
+frame = 18
+
+[node name="Card7" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(735, 82)
+scale = Vector2(0.5, 0.5)
+frame = 19
+
+[node name="Card8" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(825, 82)
+scale = Vector2(0.5, 0.5)
+frame = 23
+
+[node name="Card9" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(915, 82)
+scale = Vector2(0.5, 0.5)
+frame = 24
+
+[node name="Card10" parent="VBoxContainer/HBoxContainer2/CenterContainer/Batons" instance=ExtResource("5_nu5lp")]
+position = Vector2(1005, 82)
+scale = Vector2(0.5, 0.5)
+frame = 25
+
+[node name="Cups" type="Marker2D" parent="VBoxContainer/HBoxContainer2/CenterContainer"]
+position = Vector2(80, 160)
+
+[node name="Card1" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(195, 82)
+scale = Vector2(0.5, 0.5)
+frame = 26
+
+[node name="Card2" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(285, 82)
+scale = Vector2(0.5, 0.5)
+frame = 27
+
+[node name="Card3" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(375, 82)
+scale = Vector2(0.5, 0.5)
+frame = 28
+
+[node name="Card4" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(465, 82)
+scale = Vector2(0.5, 0.5)
+frame = 29
+
+[node name="Card5" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(555, 82)
+scale = Vector2(0.5, 0.5)
+frame = 30
+
+[node name="Card6" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(645, 82)
+scale = Vector2(0.5, 0.5)
+frame = 31
+
+[node name="Card7" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(735, 82)
+scale = Vector2(0.5, 0.5)
+frame = 32
+
+[node name="Card8" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(825, 82)
+scale = Vector2(0.5, 0.5)
+frame = 36
+
+[node name="Card9" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(915, 82)
+scale = Vector2(0.5, 0.5)
+frame = 37
+
+[node name="Card10" parent="VBoxContainer/HBoxContainer2/CenterContainer/Cups" instance=ExtResource("5_nu5lp")]
+position = Vector2(1005, 82)
+scale = Vector2(0.5, 0.5)
+frame = 38
+
+[node name="Swords" type="Marker2D" parent="VBoxContainer/HBoxContainer2/CenterContainer"]
+position = Vector2(120, 240)
+
+[node name="Card1" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(195, 82)
+scale = Vector2(0.5, 0.5)
+frame = 39
+
+[node name="Card2" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(285, 82)
+scale = Vector2(0.5, 0.5)
+frame = 40
+
+[node name="Card3" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(375, 82)
+scale = Vector2(0.5, 0.5)
+frame = 41
+
+[node name="Card4" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(465, 82)
+scale = Vector2(0.5, 0.5)
+frame = 42
+
+[node name="Card5" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(555, 82)
+scale = Vector2(0.5, 0.5)
+frame = 43
+
+[node name="Card6" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(645, 82)
+scale = Vector2(0.5, 0.5)
+frame = 44
+
+[node name="Card7" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(735, 82)
+scale = Vector2(0.5, 0.5)
+frame = 45
+
+[node name="Card8" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(825, 82)
+scale = Vector2(0.5, 0.5)
+frame = 49
+
+[node name="Card9" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(915, 82)
+scale = Vector2(0.5, 0.5)
+frame = 50
+
+[node name="Card10" parent="VBoxContainer/HBoxContainer2/CenterContainer/Swords" instance=ExtResource("5_nu5lp")]
+position = Vector2(1005, 82)
+scale = Vector2(0.5, 0.5)
+frame = 51
 
 [node name="Copyright" parent="VBoxContainer" instance=ExtResource("7_ri3nh")]
 layout_mode = 2
