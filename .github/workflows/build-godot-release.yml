@@ -11,7 +11,8 @@ on:
 env:
   GODOT_VERSION: 4.2.1
   EXPORT_NAME: PoIAna
-  WINDOWS_RELEASE_FILENAME: PoIAna.windows-x86_64.zip
+  WIN64_RELEASE_FILENAME: PoIAna.windows-x86_64.zip
+  WIN32_RELEASE_FILENAME: PoIAna.windows-x86_32.zip
 
 jobs:
   export-windows-butler:
@@ -33,24 +34,29 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
-      - name: Windows Build
+      - name: Windows Builds
         run: |
-          mkdir -v -p build/windows
-          godot --headless --verbose --export-debug "Windows Desktop" build/windows/$EXPORT_NAME.exe
+          mkdir -v -p build/win64
+          mkdir -v -p build/win32
+          godot --headless --verbose --export-debug "Windows Desktop x86_64" build/win64/$EXPORT_NAME.exe
+          godot --headless --verbose --export-debug "Windows Desktop x86_32" build/win64/$EXPORT_NAME.exe
       - name: Godot Icon
         run: |
           wget https://raw.githubusercontent.com/pkowal1982/godoticon/master/ReplaceIcon.gd
           godot --headless -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
       - name: Zip Windows release
         run: |
-          cd build/windows
-          zip -r $WINDOWS_RELEASE_FILENAME *
+          cd build/win64
+          zip -r $WIN64_RELEASE_FILENAME *
+          cd ../win32
+          zip -r $WIN32_RELEASE_FILENAME *
           cd ../..
-          mv build/windows/$WINDOWS_RELEASE_FILENAME .
+          mv build/win64/$WIN64_RELEASE_FILENAME .
+          mv build/win32/$WIN32_RELEASE_FILENAME .
       - name: Create release ${{ github.ref_name }}
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ env.WINDOWS_RELEASE_FILENAME }}
+          artifacts: "${{ env.WIN64_RELEASE_FILENAME }}, ${{ env.WIN32_RELEASE_FILENAME }}"
       - name: Publish to Itch.io with Butler
         uses: manleydev/butler-publish-itchio-action@v1.0.3
         env:
@@ -58,5 +64,5 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: poiana
           ITCH_USER: ivanrava
-          PACKAGE: ${{ env.WINDOWS_RELEASE_FILENAME }}
+          PACKAGE: ${{ env.WIN64_RELEASE_FILENAME }}
           VERSION: ${{ github.ref_name }}
