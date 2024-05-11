@@ -4,5 +4,5 @@
 [ext_resource type="Script" path="res://scenes/ui/BackButton.cs" id="2_xi6bf"]
 
 [node name="BackButton" instance=ExtResource("1_xvyof")]
-text = "Back"
+text = "BACK"
 script = ExtResource("2_xi6bf")

@@ -62,23 +62,25 @@ theme_override_font_sizes/italics_font_size = 18
 theme_override_font_sizes/bold_italics_font_size = 18
 theme_override_font_sizes/mono_font_size = 18
 bbcode_enabled = true
-text = "[b]Briscola[/b] is a popular italian card game.
-It is played with a deck of 40 cards, comprised of 4 different suits: [i]Coins[/i], [i]Batons[/i], [i]Cups[/i] and [i]Swords[/i]. Therefore, each suit has 10 cards (and each card has a different value in points): [i]Ace[/i] (11 points), [i]Two[/i] (0), [i]Three[/i] (10), [i]Four[/i] (0), [i]Five[/i] (0), [i]Six[/i] (0), [i]Seven[/i] (0), [i]Jack[/i] (2), [i]Knight[/i] (3), [i]King[/i] (4).
+text = "[b]Briscola[/b] is a popular Italian card game.
+It is played with a deck of 40 cards, comprised of 4 different suits: [i]Coins[/i], [i]Batons[/i], [i]Cups[/i], and [i]Swords[/i]. Therefore, each suit has 10 cards (and each card has a different value in points): [i]Ace[/i] (11 points), [i]Two[/i] (0), [i]Three[/i] (10), [i]Four[/i] (0), [i]Five[/i] (0), [i]Six[/i] (0), [i]Seven[/i] (0), [i]Jack[/i] (2), [i]Knight[/i] (3), [i]King[/i] (4).
 
 The game starts with 3 cards drawn by each player.
 The remaining cards stay in the deck face down, except for one card which is revealed and put face-up back into the bottom of the deck.
-The revealed card suit is the suit of [i]\"briscola\"[/i].
+The revealed card suit is the suit of [i]Briscola[/i].
 
 The turn player plays one card from his hand, then the other one plays another card from his hand.
 The winner is declared as follows:
-- If the suits are the same, wins the player which put down the highest number of points (when the points are even, wins the card with the highest written value, e.g. the Four wins against the Two).
+- If the suits are the same, the player who puts down the highest number of points (when the points are even, wins the card with the highest written value, e.g. the Four wins against the Two).
 - If the suits are NOT the same, wins the first player.
 
-There is an exception, however: whenever a player plays a card with the suit of \"briscola\", then that player wins that turn regardless of the above rules, unless the opponent plays an higher briscola.
+There is an exception, however: whenever a player plays a card with the suit of Briscola, then that player wins that turn regardless of the above rules unless the opponent plays a higher Briscola.
 
 The winner takes the two cards played and gains the sum of their points.
-As the total number of points is 120, [b]a player wins when he/she passes the 60 points threshold[/b].
-A draw is reached when both players are unable to pass the 60 points threshold."
+As the total number of points is 120, [b]a player wins when he/she passes the 60-point threshold[/b].
+A draw is reached when both players are unable to pass the 60-point threshold.
+
+Your cards are shown at the bottom of the screen. To play your card just click/tap on the desired one. After both players have played their cards you have the chance to check the cards played. After you are done, click/tap on those cards to progress the game."
 fit_content = true
 
 [node name="Copyright" parent="VBoxContainer" instance=ExtResource("5_etxi7")]

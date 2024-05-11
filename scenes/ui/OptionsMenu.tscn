@@ -31,7 +31,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 
 [node name="Title" parent="VBoxContainer/Header/Header" index="2"]
-text = "Options"
+text = "OPTIONS"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -52,7 +52,7 @@ flat = true
 [node name="EnableFatalityLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/Row1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Fatality animation"
+text = "FATALITY_OPTION"
 
 [node name="Row1Hint" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -63,7 +63,7 @@ theme_override_constants/margin_bottom = 16
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/Row1Hint"]
 layout_mode = 2
-text = "Plays an animation whenever a considerable amount of points is gained / lost."
+text = "FATALITY_DESC"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -79,7 +79,7 @@ flat = true
 [node name="AudioLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Row2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Audio effects"
+text = "AUDIO_OPTION"
 
 [node name="Row2Hint" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -90,7 +90,7 @@ theme_override_constants/margin_bottom = 16
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Row2Hint"]
 layout_mode = 2
-text = "Plays some audio effects whenever a card is drawn, played, lost, gained."
+text = "AUDIO_DESC"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

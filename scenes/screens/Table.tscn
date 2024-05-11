@@ -229,7 +229,7 @@ theme_override_constants/margin_bottom = 12
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
-text = "Toggle visibility"
+text = "TOGGLE_VISIBILITY"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 3
@@ -254,16 +254,17 @@ theme_override_constants/separation = 8
 [node name="MenuButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("7_sce0h")]
 unique_name_in_owner = true
 layout_mode = 2
+text = "MENU"
 
 [node name="ModelButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("7_sce0h")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Change difficulty"
+text = "CHANGE_DIFFICULTY"
 
 [node name="ResetButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("7_sce0h")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Reset"
+text = "RESET"
 
 [node name="AudioPlayCard" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_hmste")

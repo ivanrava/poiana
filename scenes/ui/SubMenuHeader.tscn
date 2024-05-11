@@ -36,6 +36,6 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_frabf")
 theme_override_font_sizes/font_size = 56
-text = "Difficulty"
+text = "DIFFICULTY"
 
 [editable path="Header/MarginContainer/Logo"]

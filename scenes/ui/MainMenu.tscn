@@ -54,25 +54,25 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Play"
+text = "PLAY"
 
 [node name="Rules" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Rules"
+text = "RULES"
 
 [node name="Options" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Options"
+text = "OPTIONS"
 
 [node name="Quit" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Quit"
+text = "QUIT"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

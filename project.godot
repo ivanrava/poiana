@@ -44,6 +44,10 @@ toggle_fullscreen={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://i18n/it-en.en.translation", "res://i18n/it-en.it.translation")
+
 [rendering]
 
 renderer/rendering_method="mobile"

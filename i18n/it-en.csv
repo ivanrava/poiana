@@ -1,0 +1,39 @@
+﻿key;en;it
+BACK;Back;Indietro
+PLAY;Play;Gioca
+RULES;Rules;Regole
+OPTIONS;Options;Opzioni
+QUIT;Quit;Esci
+FATALITY_OPTION;Fatality animation;Fatality
+FATALITY_DESC;Plays an animation whenever a considerable amount of points is gained / lost.;Riproduce un'animazione nota ogniqualvolta si vincono / perdono più di 20 punti.
+AUDIO_OPTION;Audio effects;Effetti sonori
+AUDIO_DESC;Plays some audio effects whenever a card is drawn, played, lost, or gained.;Attiva degli effetti sonori ogniqualvolta una carta è pescata o giocata.
+DIFFICULTY;Difficulty;Difficoltà
+SELFPLAY-BEST;DQN self-play;DQN allenato in self-play
+AMBER-LAKE;Long training with a sparse reward.;Allenamento lungo con uno sparse reward.
+AUTUMN-NIGHT;Very long training against the greedy agent. Strong in the endgame.;Allenamento molto lungo contro una strategia avida. Forte nelle fasi finali di gioco.
+MILD-AARDVARK;Only the sparse reward. Greedy agent and quick training.;Solo lo sparse reward. Allenato velocemente conto un agente avido.
+LIVELY-COSMOS;Only the sparse reward, with a 256:256 ReLU network.;Solo lo sparse reward (rete neurale 256:256 ReLU)
+BUMBLING-LEAF;Only the sparse reward, with a 256:256 ReLU network.;Solo lo sparse reward (rete neurale 256:256 ReLU)
+EASY-SHAPE;Only sparse reward and a 256:256 ReLU network. Slow annealing.;Solo lo sparse reward (rete neurale 256:256 ReLU). Annealing lento.
+TOASTY-PINE;Long training with harsher penalties. Pretty hard, less errors.;Allenamento più lungo con penalità più severe. Dovrebbe essere meno imprevedibile.
+BLOOMING-BIRD;One of the first models with penalties. Strong overall.;Uno dei primi modelli allenato con penalità. Forte e bilanciato.
+DEVOUT-PAPER;Harsher penalties and quick training.;Penalità più severe in un allenamento veloce.
+COSMIC-FIREBRAND;Worst of the best. Quick training with fast stiffness and lr = 1e-4.;Peggior modello fra questi migliori.
+DARK-SALAD;Long training with a bigger lr (3e-3).;Allenamento più lungo con una learning rate più grande
+EARNEST-NIGHT;Long training with 0.6 exploration annealing. First good model.;Primo modello che ha ottenuto delle buone performance.
+GRACEFUL-DARKNESS;Best model with penalties. Trained with all rewards activated.;Miglior modello con penalità. Allenato con tutti i premi attivi.
+HARDY-GALAXY;Smaller learning rate (1e-4) and gamma (0.9).;Learning rate e gamma più piccoli.
+LACED-POND;All rewards against the rules based agent.;Allenato con tutti i reward contro l'agente basato su euristiche.
+RICH-MOUNTAIN;Further training upon earnest-night, with fast exploration decay.;Prosecuzione dell'allenamento su earnest-night, usando un decadimento veloce della percentuale di esplorazione.
+SKILLED-SERENITY;Short training with little exploration.;Allenamento breve con poca esplorazione.
+SMART-DRAGON;Long training with dense and sparse rewards. Update / 4 episodes.;Allenamento più lungo con premi sia dense che sparse. Aggiornamento del modello effettuato ogni 4 episodi.
+SNOWY-SHAPE;Standard training, with penalties for suboptimal actions.;Allenamento standard, con penalità per azioni sub-ottime.
+SPRING-SNOWFLAKE;Further refinement of earnest-night, with a 256:256 ReLU network.;Ulteriore rifinitura di earnest-night, con una rete ReLU 256:256.
+TRUE-STAR;Second good model obtained. Strong in the second move.;Secondo miglior modello ottenuto dopo earnest-night. Particolarmente forte sulla seconda mossa.
+WARM-RIVER;Standard refinement upon an already trained model.;Rifinitura di un modello già allenato.
+WINRATE;[center]This model has an averaged [b]{0}%[/b] win rate against easy to hard heuristic agents.[/center];[center]Questo modello ha vinto in media il [b]{0}%[/b] delle partite giocate contro agenti euristici di varia difficoltà.[/center]
+TOGGLE_VISIBILITY;Toggle visibility;Alterna visibilità
+MENU;Menu;Menu
+CHANGE_DIFFICULTY;Change difficulty;Modifica difficoltà
+RESET;Reset match;Riavvia la partita
