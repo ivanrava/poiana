@@ -54,13 +54,16 @@ public partial class GameGlobals : Node
         _isFatalityEnabled = (bool)_configFile.GetValue("options", "fatality", true);
         _isAudioEnabled    = (bool)_configFile.GetValue("options", "audio", true);
         _fullscreen       = (bool)_configFile.GetValue("graphics", "fullscreen", true);
+        
+        TranslationServer.SetLocale((string)_configFile.GetValue("options", "locale", "en_US"));
     }
 
-    private void SaveConfig()
+    internal void SaveConfig()
     {
         _configFile.Clear();
         _configFile.SetValue("options", "fatality", IsFatalityEnabled);
         _configFile.SetValue("options", "audio", IsAudioEnabled);
+        _configFile.SetValue("options", "locale", TranslationServer.GetLocale());
         _configFile.SetValue("graphics", "fullscreen", _fullscreen);
 
         _configFile.Save(_configLocation);
