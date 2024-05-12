@@ -104,6 +104,7 @@ text = "2024, Ivan Ravasi (Godot frontend)
 horizontal_alignment = 1
 
 [node name="UniBS" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Made in partial fulfillment of the AI course exam requirements @ University of Brescia"
