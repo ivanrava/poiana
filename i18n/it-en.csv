@@ -39,3 +39,7 @@ CHANGE_DIFFICULTY;Change difficulty;Modifica difficoltà
 RESET;Reset match;Riavvia la partita
 ENGLISH;English;Inglese
 ITALIAN;Italian;Italiano
+WIN;You win!;Hai vinto!
+LOSE;You lose!;Hai perso!
+DRAW;A draw!;Pareggio!
+CLICK_INFO;Click to continue;Clicca per continuare

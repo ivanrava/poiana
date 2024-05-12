@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using PoIAna.scenes.autoload;
 
 public partial class OptionsMenu : TextureRect

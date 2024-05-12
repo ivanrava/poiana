@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bm26oppoddfro"]
+[gd_scene load_steps=16 format=3 uid="uid://bm26oppoddfro"]
 
 [ext_resource type="PackedScene" uid="uid://c8shxai06bcgt" path="res://scenes/cards/Deck.tscn" id="1_imupy"]
 [ext_resource type="Script" path="res://scenes/screens/Table.cs" id="1_xnrsq"]
 [ext_resource type="PackedScene" uid="uid://dtgroo7dku0or" path="res://scenes/cards/Hand.tscn" id="2_5f83q"]
+[ext_resource type="FontFile" uid="uid://fw813hhwfc6k" path="res://assets/fonts/Enriqueta-Bold.ttf" id="2_c4bdt"]
 [ext_resource type="PackedScene" uid="uid://dqrx8sn1jirjv" path="res://scenes/cards/PlayedCards.tscn" id="4_tvi8v"]
 [ext_resource type="PackedScene" uid="uid://btfatx3csqopq" path="res://scenes/ui/Score.tscn" id="4_yem0h"]
 [ext_resource type="Theme" uid="uid://ds7v8dbt8wvln" path="res://assets/toon.tres" id="6_indkq"]
@@ -112,6 +113,37 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.227451, 0.368627, 0.227451, 1)
+
+[node name="OutcomeWrapper" type="VBoxContainer" parent="Background"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.5
+offset_top = -48.5
+offset_right = 141.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -10
+alignment = 1
+
+[node name="Outcome" type="Label" parent="Background/OutcomeWrapper"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_c4bdt")
+theme_override_font_sizes/font_size = 72
+text = "You win!"
+horizontal_alignment = 1
+
+[node name="ClickInfo" type="Label" parent="Background/OutcomeWrapper"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CLICK_INFO"
+horizontal_alignment = 1
 
 [node name="Deck" parent="." instance=ExtResource("1_imupy")]
 position = Vector2(1127, 360)

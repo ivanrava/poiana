@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using PoIAna.scenes.ai;
@@ -28,6 +29,7 @@ public partial class Table : Node
     private GameGlobals _autoload;
     private AudioStreamPlayer _audioPlayCard;
     private AudioStreamPlayer _audioClearTable;
+    private VBoxContainer _outcomeWrapper;
 
     private bool RandomBool()
     {
@@ -82,6 +84,8 @@ public partial class Table : Node
         _clickOverlay = GetNode<Area2D>("ClickOverlay"); 
         _clickOverlay.InputEvent += ClickOverlayHandler; 
         _clickOverlay.InputPickable = false;
+        
+        _outcomeWrapper = GetNode<VBoxContainer>("%OutcomeWrapper");
 
         if (!_isPlayerTurn)
         {
@@ -185,17 +189,42 @@ public partial class Table : Node
     {
         if (@event is InputEventMouseButton && @event.IsReleased())
         {
-            ResolvePlayedCards();
-            await DrawPhase();
-            
-            if (!_isPlayerTurn)
+            if (_outcomeWrapper.Visible)
             {
-                OpponentMove();
+                GetTree().ReloadCurrentScene();
             }
+            ResolvePlayedCards();
+            if (_deck.RemainingCards() == 0 && _playerHand.Cards.Count == 0 && !_outcomeWrapper.Visible)
+            {
+                string messageKey;
+                if (int.Parse(_scores[Player].Text) > int.Parse(_scores[Opponent].Text))
+                {
+                    messageKey = "WIN";
+                }
+                else if (int.Parse(_scores[Player].Text) < int.Parse(_scores[Opponent].Text))
+                {
+                    messageKey = "LOSE";
+                }
+                else
+                {
+                    messageKey = "DRAW";
+                }
+                _outcomeWrapper.GetNode<Label>("Outcome").Text = Tr(messageKey);
+                _outcomeWrapper.Show();
+            }
+            else
+            {
+                await DrawPhase();
+                
+                if (!_isPlayerTurn)
+                {
+                    OpponentMove();
+                }
 
-            _playerHand.CardSelected += HandleHandCardSelected;
-            
-            _clickOverlay.InputPickable = false;
+                _playerHand.CardSelected += HandleHandCardSelected;
+                
+                _clickOverlay.InputPickable = false;
+            }
             GetViewport().SetInputAsHandled();
         }
     }
