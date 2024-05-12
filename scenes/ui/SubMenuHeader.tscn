@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://vf6mg58nleyy" path="res://scenes/ui/BackButton.tscn" id="1_cl7tl"]
 [ext_resource type="PackedScene" uid="uid://bbu2j05cnvwh0" path="res://scenes/ui/Logo.tscn" id="2_f4pci"]
-[ext_resource type="FontFile" uid="uid://xlhdua8hd8aw" path="res://assets/fonts/Kanit-Bold.ttf" id="3_frabf"]
+[ext_resource type="FontFile" uid="uid://fw813hhwfc6k" path="res://assets/fonts/Enriqueta-Bold.ttf" id="3_3dqjc"]
 
 [node name="MarginContainer" type="MarginContainer"]
 theme_override_constants/margin_left = 24
@@ -34,8 +34,8 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Title" type="Label" parent="Header"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_frabf")
-theme_override_font_sizes/font_size = 56
+theme_override_fonts/font = ExtResource("3_3dqjc")
+theme_override_font_sizes/font_size = 48
 text = "DIFFICULTY"
 
 [editable path="Header/MarginContainer/Logo"]

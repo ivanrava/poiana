@@ -29,7 +29,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 
 [node name="Title" parent="VBoxContainer/Header/Header" index="2"]
-text = "Rules"
+text = "RULES"
 
 [node name="Body" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2

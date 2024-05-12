@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbu2j05cnvwh0"]
 
 [ext_resource type="Texture2D" uid="uid://brmejtpfe2hq8" path="res://icon.png" id="1_3kybb"]
-[ext_resource type="FontFile" uid="uid://p2boinsv1oo6" path="res://assets/fonts/Kanit-Light.ttf" id="2_hg1ao"]
+[ext_resource type="FontFile" uid="uid://fw813hhwfc6k" path="res://assets/fonts/Enriqueta-Bold.ttf" id="2_pvc3u"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 alignment = 1
@@ -18,6 +18,6 @@ theme_override_constants/margin_bottom = 40
 
 [node name="PoIAna" type="Label" parent="MarginContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_hg1ao")
+theme_override_fonts/font = ExtResource("2_pvc3u")
 theme_override_font_sizes/font_size = 48
 text = "PoIAna"
