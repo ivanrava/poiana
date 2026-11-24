@@ -32,7 +32,11 @@ SNOWY-SHAPE;Standard training, with penalties for suboptimal actions.;Allenament
 SPRING-SNOWFLAKE;Further refinement of earnest-night, with a 256:256 ReLU network.;Ulteriore rifinitura di earnest-night, con una rete ReLU 256:256.
 TRUE-STAR;Second good model obtained. Strong in the second move.;Secondo miglior modello ottenuto dopo earnest-night. Particolarmente forte sulla seconda mossa.
 WARM-RIVER;Standard refinement upon an already trained model.;Rifinitura di un modello già allenato.
+VOTING-5;Majority voting by the best 5 models.;Votazione a maggioranza da parte dei 5 migliori modelli.
+VOTING-10;Majority voting by the best 10 models.;Votazione a maggioranza da parte dei 10 migliori modelli.
+VOTING-23;Majority voting by all models.;Votazione a maggioranza da parte di tutti i modelli.
 WINRATE;[center]This model has an averaged [b]{0}%[/b] win rate against easy to hard heuristic agents.[/center];[center]Questo modello ha vinto in media il [b]{0}%[/b] delle partite giocate contro agenti euristici di varia difficoltà.[/center]
+WINRATE-UNTESTED;[center][b]Experimental![/b] The performance has not yet been measured. Good luck![/center];[center][b]Sperimentale![/b] La performance di questa strategia è ancora ignota. Buona fortuna![/center]
 TOGGLE_VISIBILITY;Toggle visibility;Alterna visibilità
 MENU;Menu;Menu
 CHANGE_DIFFICULTY;Change difficulty;Modifica difficoltà
