@@ -58,7 +58,7 @@ jobs:
         with:
           artifacts: "${{ env.WIN64_RELEASE_FILENAME }}, ${{ env.WIN32_RELEASE_FILENAME }}"
       - name: Publish to Itch.io with Butler
-        uses: manleydev/butler-publish-itchio-action@v1.0.3
+        uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: windows
