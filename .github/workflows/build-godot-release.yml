@@ -30,6 +30,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "8.0.x"
+      - name: Setup export templates for GitHub
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
       - name: Windows Builds
         run: |
           mkdir -v -p build/win64
