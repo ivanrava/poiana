@@ -16,7 +16,7 @@ env:
 
 jobs:
   export-windows-butler:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     container:
