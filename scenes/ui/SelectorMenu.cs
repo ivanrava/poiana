@@ -1,9 +1,10 @@
 using System;
-using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using PoIAna.scenes.autoload;
-using PoIAna.scenes.ui;
+
+namespace PoIAna.scenes.ui;
 
 public partial class SelectorMenu : TextureRect
 {
@@ -30,33 +31,8 @@ public partial class SelectorMenu : TextureRect
     public override void _Ready()
     {
         base._Ready();
+        _modelMetas = GetNode<GameGlobals>("/root/GameGlobals").AllModels;
         
-        _modelMetas = new()
-        {
-            new ModelMeta("🤳🏻", "selfplay-best", 0.568933f),
-            new ModelMeta("🌊", "amber-lake", 0.578433f),
-            new ModelMeta("🍂", "autumn-night", 0.680767f),
-            new ModelMeta("🦦", "mild-aardvark", 0.653067f),
-            new ModelMeta("💫", "lively-cosmos", 0.633833f),
-            new ModelMeta("🍃", "bumbling-leaf", 0.615367f),
-            new ModelMeta("🪨", "easy-shape", 0.612867f),
-            new ModelMeta("🌲", "toasty-pine", 0.680800f),
-            new ModelMeta("🐦", "blooming-bird", 0.682033f),
-            new ModelMeta("📄", "devout-paper", 0.656833f),
-            new ModelMeta("🧨", "cosmic-firebrand", 0.450967f),
-            new ModelMeta("🥗", "dark-salad", 0.572400f),
-            new ModelMeta("🌃", "earnest-night", 0.588133f),
-            new ModelMeta("🕳️", "graceful-darkness", 0.681433f),
-            new ModelMeta("☄️", "hardy-galaxy", 0.482300f),
-            new ModelMeta("🎣", "laced-pond", 0.676333f),
-            new ModelMeta("🏔️", "rich-mountain", 0.588133f),
-            new ModelMeta("😌", "skilled-serenity", 0.538800f),
-            new ModelMeta("🐲", "smart-dragon", 0.532100f),
-            new ModelMeta("🌨️", "snowy-shape", 0.650300f),
-            new ModelMeta("❄️", "spring-snowflake", 0.575500f),
-            new ModelMeta("🌟", "true-star", 0.680267f),
-            new ModelMeta("🛶", "warm-river", 0.576833f),
-        };
         foreach (var meta in _modelMetas)
         {
             meta.Description = Tr(meta.Name.ToUpper());
@@ -68,6 +44,10 @@ public partial class SelectorMenu : TextureRect
         {
             Play();
         };
+        
+        container.AddChild(AddVotingStrategyButton(5));
+        container.AddChild(AddVotingStrategyButton(10));
+        container.AddChild(AddVotingStrategyButton(23));
 
         float min = _modelMetas.Select(meta => meta.WinRate).Min();
         float max = _modelMetas.Select(meta => meta.WinRate).Max();
@@ -93,6 +73,26 @@ public partial class SelectorMenu : TextureRect
                 _selectedModel = modelMeta;
             };
         }
+    }
+
+    private Button AddVotingStrategyButton(int howmany)
+    {
+        var votingMeta = new ModelMeta("🗳️", "voting-"+howmany, 0f);
+        votingMeta.Description = Tr(votingMeta.Name.ToUpper());
+        Button moeButton = new Button();
+        moeButton.Text = votingMeta.DisplayName;
+        moeButton.AddThemeFontSizeOverride("font_size", 24);
+
+        moeButton.ButtonUp += () =>
+        {
+            GetNode<Label>("%DisplayName").Text = votingMeta.DisplayName;
+            GetNode<Label>("%Description").Text = votingMeta.Description;
+            GetNode<RichTextLabel>("%WinRate").Text = Tr("WINRATE-UNTESTED");
+            GetNode<Button>("%Play").Show();
+            _selectedModel = votingMeta;
+        };
+        
+        return moeButton;
     }
 
     private void Play()

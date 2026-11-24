@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -46,7 +47,9 @@ public partial class Selector : PanelContainer
 
 public record ModelMeta(string Icon, string Name, float WinRate)
 {
+    public bool IsSpecial => Name.StartsWith("voting");
+    public int VotingQuorum => Int32.Parse(Name.TrimPrefix("voting-"));
     public string Description;
     public string Filename => Name + ".onnx";
-    public string DisplayName => Icon + " " + Name;
+    public string DisplayName => Icon + " " + (Name == "voting-23" ? "voting-all" : Name);
 }
