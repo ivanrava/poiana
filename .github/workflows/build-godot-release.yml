@@ -13,6 +13,7 @@ env:
   EXPORT_NAME: PoIAna
   WIN64_RELEASE_FILENAME: PoIAna.windows-x86_64.zip
   WIN32_RELEASE_FILENAME: PoIAna.windows-x86_32.zip
+  LINUX64_RELEASE_FILENAME: PoIAna.linux-x86_64.zip
 
 jobs:
   export-windows-butler:
@@ -34,30 +35,37 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
-      - name: Windows Builds
+      - name: Export Builds
         run: |
           mkdir -v -p build/win64
           mkdir -v -p build/win32
-          godot --headless --verbose --export-debug "Windows Desktop x86_64" build/win64/$EXPORT_NAME.exe
-          godot --headless --verbose --export-debug "Windows Desktop x86_32" build/win32/$EXPORT_NAME.exe
+          mkdir -v -p build/linux
+          
+          godot --headless --verbose --export-release "Windows Desktop x86_64" build/win64/$EXPORT_NAME.exe
+          godot --headless --verbose --export-release "Windows Desktop x86_32" build/win32/$EXPORT_NAME.exe
+          godot --headless --verbose --export-release "Linux/X11" build/linux/$EXPORT_NAME.x86_64
       - name: Godot Icon
         run: |
           wget https://raw.githubusercontent.com/pkowal1982/godoticon/master/ReplaceIcon.gd
-          godot --headless -s ReplaceIcon.gd icon.ico build/windows/$EXPORT_NAME.exe
-      - name: Zip Windows release
+          godot --headless -s ReplaceIcon.gd icon.ico build/win64/$EXPORT_NAME.exe
+      - name: Zip releases
         run: |
           cd build/win64
           zip -r $WIN64_RELEASE_FILENAME *
           cd ../win32
           zip -r $WIN32_RELEASE_FILENAME *
+          cd ../linux
+          chmod +x $EXPORT_NAME.x86_64
+          zip -r $LINUX64_RELEASE_FILENAME *
           cd ../..
           mv build/win64/$WIN64_RELEASE_FILENAME .
           mv build/win32/$WIN32_RELEASE_FILENAME .
+          mv build/linux/$LINUX64_RELEASE_FILENAME .
       - name: Create release ${{ github.ref_name }}
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ env.WIN64_RELEASE_FILENAME }}, ${{ env.WIN32_RELEASE_FILENAME }}"
-      - name: Publish to Itch.io with Butler
+          artifacts: "${{ env.WIN64_RELEASE_FILENAME }}, ${{ env.WIN32_RELEASE_FILENAME }}",${{ env.LINUX64_RELEASE_FILENAME }}"
+      - name: Publish Windows to Itch.io with Butler
         uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
@@ -65,4 +73,13 @@ jobs:
           ITCH_GAME: poiana
           ITCH_USER: ivanrava
           PACKAGE: ${{ env.WIN64_RELEASE_FILENAME }}
+          VERSION: ${{ github.ref_name }}
+      - name: Publish Linux to Itch.io with Butler
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: poiana
+          ITCH_USER: ivanrava
+          PACKAGE: ${{ env.LINUX64_RELEASE_FILENAME }}
           VERSION: ${{ github.ref_name }}
