@@ -1,3 +1,19 @@
 # Godot 4+ specific ignores
 .godot/
 build/
+
+# Keep the custom Android Gradle project
+!android/build/
+!android/build/**
+
+# Ignore generated Gradle files
+android/build/.gradle/
+android/build/build/
+android/build/.kotlin/
+
+# Android Gradle project
+android/build/libs/
+android/build/res/
+android/build/src/main/assets/
+android/build/src/instrumented/
+android/build/src/androidTestInstrumented/
