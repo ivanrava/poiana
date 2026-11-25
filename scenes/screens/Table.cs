@@ -90,10 +90,10 @@ public partial class Table : Node
 		
 		// Initialize hands
 		_handCover.Hide();
-		_audioPlayCard.Play();
+		PlayCardSound();
 		await _opponentHand.SetHand(_deck.Draw(true), _deck.Draw(true), _deck.Draw(true));
 		_handCover.Show();
-		_audioPlayCard.Play();
+		PlayCardSound();
 		await _playerHand.SetHand(_deck.Draw(false), _deck.Draw(false), _deck.Draw(false));
 		
 		_clickOverlay = GetNode<Area2D>("ClickOverlay"); 
@@ -142,7 +142,7 @@ public partial class Table : Node
 		Card animableCard;
 		Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State(), out animableCard);
 		_handCover.GetNode<Card>(new NodePath(opponentCard.Name)).Hide();
-		_audioPlayCard.Play();
+		PlayCardSound();
 		await _playedCards.PlayCardOnTable(Opponent, animableCard);
 	}
 
@@ -251,12 +251,12 @@ public partial class Table : Node
 		Card c1 = _deck.Draw(!_isPlayerTurn);
 		if (c1 == null)
 			return;
-		_audioPlayCard.Play();
+		PlayCardSound();
 		
 		if (_isPlayerTurn)
 		{
 			await _playerHand.AddCard(c1);
-			_audioPlayCard.Play();
+			PlayCardSound();
 			Card c2 = _deck.Draw(_isPlayerTurn);
 			await _opponentHand.AddCard(c2);
 			foreach (var node in _handCover.GetChildren())
@@ -273,12 +273,20 @@ public partial class Table : Node
 				var child = (Card)node;
 				child.Show();
 			}
-			_audioPlayCard.Play();
+			PlayCardSound();
 			Card c2 = _deck.Draw(_isPlayerTurn);
 			await _playerHand.AddCard(c2);
 		}
 
 		_turn++;
+	}
+	
+	private void PlayCardSound()
+	{
+		_audioPlayCard.PitchScale =
+			0.96f + (float)_rng.NextDouble() * 0.08f;
+
+		_audioPlayCard.Play();
 	}
 	
 	private async void ClickOverlayHandler(Node viewport, InputEvent @event, long shapeidx)
@@ -332,7 +340,7 @@ public partial class Table : Node
 	private async void HandleHandCardSelected(Card card)
 	{
 		_playerHand.CardSelected -= HandleHandCardSelected;
-		_audioPlayCard.Play();
+		PlayCardSound();
 		await _playedCards.PlayCardOnTable(Player, card);
 
 		if (_isPlayerTurn)
