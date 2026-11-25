@@ -17,7 +17,6 @@ public class VotingOnnxOpponentStrategy : OnnxOpponentStrategy
         foreach (var (strategy, score) in _opponentStrategies)
         {
             int card = strategy.ChooseCard(state);
-            GD.Print(card);
             cardScores[card] += score;
         }
 
