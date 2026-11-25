@@ -31,6 +31,7 @@ public partial class Deck : Node2D
     private void UpdateRemainingCardsInterface()
     {
         _remainingCards.Text = _deck.Count().ToString();
+
         if (_deck.Count() == 1)
         {
             _deckBackSprite.Hide();
@@ -40,6 +41,26 @@ public partial class Deck : Node2D
             _briscolaSprite.Hide();
             _remainingCards.Hide();
         }
+
+        _remainingCards.PivotOffset =
+            _remainingCards.Size / 2.0f;
+
+        Tween tween = _remainingCards.CreateTween();
+
+        tween.TweenProperty(
+                _remainingCards,
+                "scale",
+                Vector2.One * 1.25f,
+                0.08f
+            ).SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        tween.TweenProperty(
+            _remainingCards,
+            "scale",
+            Vector2.One,
+            0.12f
+        );
     }
     
     public new Card Draw(bool hide) 
