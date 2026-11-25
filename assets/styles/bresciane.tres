@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=58 format=3 uid="uid://db1mu17k4t028"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://db1mu17k4t028"]
 
 [ext_resource type="Texture2D" uid="uid://bbuk7tvb2258n" path="res://assets/styles/Bresciane.svg" id="1_1fgkl"]
 
@@ -397,7 +397,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y5lyi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
