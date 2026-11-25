@@ -48,18 +48,9 @@ public partial class SelectorMenu : TextureRect
         button.ButtonDown += () =>
             ScaleButton(button, 0.97f);
     }
-    
-    private void SelectModel(ModelMeta modelMeta, Button button)
+
+    private void UpdateModelDescription(ModelMeta modelMeta)
     {
-        if (_selectedButton != null &&
-            _selectedButton != button)
-        {
-            ScaleButton(_selectedButton, 1.0f);
-        }
-
-        _selectedButton = button;
-        ScaleButton(button, 1.05f);
-
         GetNode<Label>("%DisplayName").Text =
             modelMeta.DisplayName;
 
@@ -73,6 +64,44 @@ public partial class SelectorMenu : TextureRect
                     Tr("WINRATE"),
                     modelMeta.WinRate * 100
                 );
+    }
+    
+    private void SelectModel(ModelMeta modelMeta, Button button)
+    {
+        if (_selectedButton != null &&
+            _selectedButton != button)
+        {
+            ScaleButton(_selectedButton, 1.0f);
+        }
+
+        _selectedButton = button;
+        ScaleButton(button, 1.05f);
+
+        if (_selectedModel == null)
+        {
+            UpdateModelDescription(modelMeta);
+        }
+        else
+        {
+            var infoContainer = GetNode<Control>("%InfoContainer");
+            Tween tween = infoContainer.CreateTween();
+            tween.TweenProperty(
+                infoContainer,
+                "modulate:a",
+                0.0f,
+                0.08f
+            );
+
+            tween.TweenCallback(Callable.From(() => UpdateModelDescription(modelMeta)));
+
+            tween.TweenProperty(
+                infoContainer,
+                "modulate:a",
+                1.0f,
+                0.14f
+            );
+        }
+        
 
         GetNode<Button>("%Play").Show();
 
