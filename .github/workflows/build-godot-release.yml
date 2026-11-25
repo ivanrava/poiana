@@ -38,10 +38,20 @@ jobs:
 
           sdkmanager --install \
             "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.1" \
-            "ndk;28.1.13356709" \
-            "cmake;3.10.2.4988404"
+            "platforms;android-36" \
+            "build-tools;36.1.0" \
+            "ndk;29.0.14206865" \
+            "cmake;3.22.1"
+      - name: Verify Android toolchain
+        run: |
+          java -version
+          echo "JAVA_HOME=$JAVA_HOME"
+
+          test -x /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+          test -x /usr/lib/android-sdk/platform-tools/adb
+          test -d /usr/lib/android-sdk/platforms/android-36
+          test -d /usr/lib/android-sdk/build-tools/36.1.0
+          test -d /usr/lib/android-sdk/ndk/29.0.14206865
       - name: Setup Android signing
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -120,6 +130,23 @@ jobs:
             "$FILE"
 
           grep -E '^version/(code|name)=' "$FILE"
+      - name: Configure Godot Android paths
+        run: |
+          mkdir -p ~/.config/godot
+
+          cat > ~/.config/godot/editor_settings-4.7.tres <<'EOF'
+          [gd_resource type="EditorSettings" format=3]
+
+          [resource]
+          export/android/java_sdk_path = "/usr/lib/jvm/java-17-openjdk-amd64"
+          export/android/android_sdk_path = "/usr/lib/android-sdk"
+          export/android/debug_keystore = "/root/debug.keystore"
+          export/android/debug_keystore_user = "androiddebugkey"
+          export/android/debug_keystore_pass = "android"
+          EOF
+      - name: Build C# solution
+        run: |
+          godot --headless --editor --path . --build-solutions --quit
       - name: Export Android APK
         env:
           GODOT_ANDROID_KEYSTORE_RELEASE_PATH: /tmp/poiana-release.keystore
