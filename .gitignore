@@ -12,7 +12,7 @@ android/build/build/
 android/build/.kotlin/
 
 # Android Gradle project
-android/build/libs/
+android/build/libs/*
 android/build/src/main/assets/
 android/build/src/instrumented/
 android/build/src/androidTestInstrumented/
@@ -24,3 +24,8 @@ android/build/res/*
 !android/build/res/values/
 android/build/res/values/*
 !android/build/res/values/themes.xml
+
+# Keep Godot release template required by Gradle
+!android/build/libs/release/
+android/build/libs/release/*
+!android/build/libs/release/godot-lib.template_release.aar
