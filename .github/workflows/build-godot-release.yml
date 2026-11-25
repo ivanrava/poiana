@@ -64,7 +64,7 @@ jobs:
       - name: Create release ${{ github.ref_name }}
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ env.WIN64_RELEASE_FILENAME }}, ${{ env.WIN32_RELEASE_FILENAME }}",${{ env.LINUX64_RELEASE_FILENAME }}"
+          artifacts: "${{ env.WIN64_RELEASE_FILENAME }}, ${{ env.WIN32_RELEASE_FILENAME }}, ${{ env.LINUX64_RELEASE_FILENAME }}"
       - name: Publish Windows to Itch.io with Butler
         uses: manleydev/butler-publish-itchio-action@master
         env:
