@@ -126,6 +126,43 @@ public partial class PlayedCards : Node2D
         Clean();
     }
     
+    public async Task HighlightWinnerAsync()
+    {
+        int winnerIndex = Cards.FindIndex(
+            entry => entry.Key == Winner()
+        );
+
+        if (winnerIndex < 0 || winnerIndex >= _cardSprites.Count)
+            return;
+
+        Card winningCard = _cardSprites[winnerIndex];
+
+        Tween tween = CreateTween();
+        tween.SetParallel();
+
+        tween.TweenProperty(
+                winningCard,
+                "scale",
+                winningCard.Scale * 1.12f,
+                0.18f
+            ).SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        tween.TweenProperty(
+            winningCard,
+            "modulate",
+            new Color(1.0f, 0.88f, 0.48f),
+            0.18f
+        );
+
+        await ToSignal(tween, "finished");
+
+        await ToSignal(
+            GetTree().CreateTimer(0.35f),
+            SceneTreeTimer.SignalName.Timeout
+        );
+    }
+    
     public int Score()
     {
         return _cardSprites.Sum(card => new BriscolaScore().Score(card.CardData));

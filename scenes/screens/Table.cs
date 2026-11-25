@@ -351,6 +351,8 @@ public partial class Table : Node
 		if (_playedCards.Score() >= 20)
 			PlayFatality();
 		
+		await _playedCards.HighlightWinnerAsync();
+		
 		_clickOverlay.InputPickable = true;
 	}
 }
