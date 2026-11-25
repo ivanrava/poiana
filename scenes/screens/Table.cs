@@ -30,6 +30,8 @@ public partial class Table : Node
 	private AudioStreamPlayer _audioPlayCard;
 	private AudioStreamPlayer _audioClearTable;
 	private VBoxContainer _outcomeWrapper;
+	
+	private Label _trickFeedback;
 
 	private bool RandomBool()
 	{
@@ -62,6 +64,8 @@ public partial class Table : Node
 
 		_playerHand.SetInteractive(true);
 		_opponentHand.SetInteractive(false);
+		
+		_trickFeedback = GetNode<Label>("%TrickFeedback");
 		
 		_deck = GetNode<Deck>("Deck");
 		_playedCards = GetNode<PlayedCards>("PlayedCards");
@@ -147,15 +151,96 @@ public partial class Table : Node
 	 * - Clean played cards
 	 * - Update the turn player
 	 */
-	private void ResolvePlayedCards()
+	private async Task ResolvePlayedCards()
 	{
 		var winner = _playedCards.Winner();
-		_scores[winner].Text = (int.Parse(_scores[winner].Text) + _playedCards.Score()).ToString();
-		
+		int points = _playedCards.Score();
+
+		Label scoreLabel = _scores[winner];
+
+		int previousScore = int.Parse(scoreLabel.Text);
+		scoreLabel.Text = (previousScore + points).ToString();
+
+		PunchScore(scoreLabel);
+		ShowTrickFeedback(points);
+
 		_audioClearTable.Play();
-		_playedCards.Clean();
+
+		Vector2 targetPosition =
+			scoreLabel.GetGlobalRect().GetCenter();
+
+		await _playedCards.CollectToAsync(targetPosition);
 
 		_isPlayerTurn = winner == Player;
+	}
+	
+	private void PunchScore(Label label)
+	{
+		label.PivotOffset = label.Size / 2.0f;
+
+		Tween tween = label.CreateTween();
+
+		tween.TweenProperty(
+				label,
+				"scale",
+				Vector2.One * 1.25f,
+				0.10f
+			).SetTrans(Tween.TransitionType.Back)
+			.SetEase(Tween.EaseType.Out);
+
+		tween.TweenProperty(
+				label,
+				"scale",
+				Vector2.One,
+				0.18f
+			).SetTrans(Tween.TransitionType.Cubic)
+			.SetEase(Tween.EaseType.Out);
+	}
+	
+	private async void ShowTrickFeedback(int points)
+	{
+		_trickFeedback.Text = $"+{points}";
+		_trickFeedback.Show();
+
+		_trickFeedback.Modulate = Colors.Transparent;
+		_trickFeedback.Scale = Vector2.One * 0.75f;
+		_trickFeedback.PivotOffset = _trickFeedback.Size / 2.0f;
+
+		Tween showTween = CreateTween();
+		showTween.SetParallel();
+
+		showTween.TweenProperty(
+			_trickFeedback,
+			"modulate",
+			Colors.White,
+			0.12f
+		);
+
+		showTween.TweenProperty(
+				_trickFeedback,
+				"scale",
+				Vector2.One,
+				0.18f
+			).SetTrans(Tween.TransitionType.Back)
+			.SetEase(Tween.EaseType.Out);
+
+		await ToSignal(
+			GetTree().CreateTimer(0.65f),
+			"timeout"
+		);
+
+		Tween hideTween = CreateTween();
+
+		hideTween.TweenProperty(
+			_trickFeedback,
+			"modulate:a",
+			0.0f,
+			0.20f
+		);
+
+		await ToSignal(hideTween, "finished");
+
+		_trickFeedback.Hide();
 	}
 	
 	/**

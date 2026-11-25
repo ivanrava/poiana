@@ -86,6 +86,46 @@ public partial class PlayedCards : Node2D
         Cards.Clear();
     }
     
+    public async Task CollectToAsync(Vector2 targetPosition)
+    {
+        if (_cardSprites.Count == 0)
+            return;
+
+        Tween tween = CreateTween();
+        tween.SetParallel();
+
+        foreach (Card card in _cardSprites)
+        {
+            card.ZIndex = 30;
+
+            tween.TweenProperty(
+                    card,
+                    "global_position",
+                    targetPosition,
+                    0.30f
+                ).SetTrans(Tween.TransitionType.Cubic)
+                .SetEase(Tween.EaseType.In);
+
+            tween.TweenProperty(
+                card,
+                "scale",
+                card.Scale * 0.45f,
+                0.30f
+            );
+
+            tween.TweenProperty(
+                card,
+                "modulate:a",
+                0.0f,
+                0.30f
+            );
+        }
+
+        await ToSignal(tween, "finished");
+
+        Clean();
+    }
+    
     public int Score()
     {
         return _cardSprites.Sum(card => new BriscolaScore().Score(card.CardData));
