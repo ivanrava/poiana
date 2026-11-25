@@ -102,13 +102,13 @@ public partial class Table : Node
 		
 		_outcomeWrapper = GetNode<VBoxContainer>("%OutcomeWrapper");
 
+		_turn = 1;
+		
 		if (!_isPlayerTurn)
 		{
-			OpponentMove();
+			await OpponentMove();
 		}
 		_playerHand.CardSelected += HandleHandCardSelected;
-
-		_turn = 1;
 	}
 
 	private void PlayFatality()
@@ -137,7 +137,7 @@ public partial class Table : Node
 	/**
 	 * Make the opponent play a card
 	 */
-	private async void OpponentMove()
+	private async Task OpponentMove()
 	{
 		Card animableCard;
 		Card opponentCard = _opponentHand.TakeCard(_opponentStrategy, State(), out animableCard);
@@ -283,11 +283,15 @@ public partial class Table : Node
 	
 	private async void ClickOverlayHandler(Node viewport, InputEvent @event, long shapeidx)
 	{
+		if (_playedCards.Cards.Count != 2)
+			return;
+		
 		if (@event is InputEventMouseButton && @event.IsReleased())
 		{
 			if (_outcomeWrapper.Visible)
 			{
 				GetTree().ReloadCurrentScene();
+				return;
 			}
 			ResolvePlayedCards();
 			if (_deck.RemainingCards() == 0 && _playerHand.Cards.Count == 0 && !_outcomeWrapper.Visible)
@@ -333,7 +337,7 @@ public partial class Table : Node
 
 		if (_isPlayerTurn)
 		{
-			OpponentMove();
+			await OpponentMove();
 		}
 		
 		if (_playedCards.Score() >= 20)
