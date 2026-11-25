@@ -10,6 +10,74 @@ public partial class SelectorMenu : TextureRect
 {
     private List<ModelMeta> _modelMetas;
     private ModelMeta _selectedModel;
+    private Button _selectedButton;
+
+    private readonly Dictionary<Button, Tween> _buttonTweens = new();
+    
+    private void ScaleButton(Button button, float scale)
+    {
+        if (_buttonTweens.TryGetValue(button, out var previous)
+            && previous.IsRunning())
+        {
+            previous.Kill();
+        }
+
+        button.PivotOffset = button.Size / 2.0f;
+
+        Tween tween = button.CreateTween();
+
+        _buttonTweens[button] = tween;
+
+        tween.TweenProperty(
+                button,
+                "scale",
+                Vector2.One * scale,
+                0.10f
+            ).SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+    }
+    
+    private void AddButtonJuice(Button button)
+    {
+        button.MouseEntered += () =>
+            ScaleButton(button, button == _selectedButton ? 1.06f : 1.035f);
+
+        button.MouseExited += () =>
+            ScaleButton(button, button == _selectedButton ? 1.05f : 1.0f);
+
+        button.ButtonDown += () =>
+            ScaleButton(button, 0.97f);
+    }
+    
+    private void SelectModel(ModelMeta modelMeta, Button button)
+    {
+        if (_selectedButton != null &&
+            _selectedButton != button)
+        {
+            ScaleButton(_selectedButton, 1.0f);
+        }
+
+        _selectedButton = button;
+        ScaleButton(button, 1.05f);
+
+        GetNode<Label>("%DisplayName").Text =
+            modelMeta.DisplayName;
+
+        GetNode<Label>("%Description").Text =
+            modelMeta.Description;
+
+        GetNode<RichTextLabel>("%WinRate").Text =
+            modelMeta.IsSpecial
+                ? Tr("WINRATE-UNTESTED")
+                : String.Format(
+                    Tr("WINRATE"),
+                    modelMeta.WinRate * 100
+                );
+
+        GetNode<Button>("%Play").Show();
+
+        _selectedModel = modelMeta;
+    }
     
     private void ModulateStyleBox(Button button, string styleBoxName, Color color)
     {
@@ -40,10 +108,9 @@ public partial class SelectorMenu : TextureRect
         
         _modelMetas.Sort((meta1, meta2) => meta2.WinRate.CompareTo(meta1.WinRate));
         var container = GetNode<HFlowContainer>("%HFlowContainer");
-        GetNode<Button>("%Play").ButtonUp += () =>
-        {
-            Play();
-        };
+        var playButton = GetNode<Button>("%Play");
+        playButton.ButtonUp += Play;
+        AddButtonJuice(playButton);
         
         container.AddChild(AddVotingStrategyButton(5));
         container.AddChild(AddVotingStrategyButton(10));
@@ -54,6 +121,7 @@ public partial class SelectorMenu : TextureRect
         foreach (ModelMeta modelMeta in _modelMetas)
         {
             Button button = new Button();
+            AddButtonJuice(button);
             button.Text = modelMeta.DisplayName;
             button.AddThemeFontSizeOverride("font_size", 24);
             container.AddChild(button);
@@ -64,14 +132,7 @@ public partial class SelectorMenu : TextureRect
             ModulateStyleBox(button, "pressed", color);
             ModulateStyleBox(button, "hover", color);
             
-            button.ButtonUp += () =>
-            {
-                GetNode<Label>("%DisplayName").Text = modelMeta.DisplayName;
-                GetNode<Label>("%Description").Text = modelMeta.Description;
-                GetNode<RichTextLabel>("%WinRate").Text = String.Format(Tr("WINRATE"), modelMeta.WinRate * 100);
-                GetNode<Button>("%Play").Show();
-                _selectedModel = modelMeta;
-            };
+            button.ButtonUp += () => SelectModel(modelMeta, button);
         }
     }
 
@@ -84,13 +145,9 @@ public partial class SelectorMenu : TextureRect
         moeButton.AddThemeFontSizeOverride("font_size", 24);
 
         moeButton.ButtonUp += () =>
-        {
-            GetNode<Label>("%DisplayName").Text = votingMeta.DisplayName;
-            GetNode<Label>("%Description").Text = votingMeta.Description;
-            GetNode<RichTextLabel>("%WinRate").Text = Tr("WINRATE-UNTESTED");
-            GetNode<Button>("%Play").Show();
-            _selectedModel = votingMeta;
-        };
+            SelectModel(votingMeta, moeButton);
+        
+        AddButtonJuice(moeButton);
         
         return moeButton;
     }
