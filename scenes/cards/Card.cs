@@ -10,16 +10,97 @@ public partial class Card : AnimatedSprite2D
 
     public CardData CardData;
     
+    private Area2D _mouseDetector;
+    private Tween _hoverTween;
+
+    private Vector2 _restPosition;
+    private Vector2 _restScale;
+
+    private bool _interactive;
+    
     public override void _Ready()
     {
         base._Ready();
-        var mouseDetector = GetNode<Area2D>("MouseDetector");
-        mouseDetector.InputEvent += HandleInputEvent;
+
+        _mouseDetector = GetNode<Area2D>("MouseDetector");
+
+        _mouseDetector.InputEvent += HandleInputEvent;
+        _mouseDetector.MouseEntered += HandleMouseEntered;
+        _mouseDetector.MouseExited += HandleMouseExited;
+
+        _mouseDetector.InputPickable = false;
+
+        _restPosition = Position;
+        _restScale = Scale;
+    }
+    
+    public void SetInteractive(bool enabled)
+    {
+        _interactive = enabled;
+        _mouseDetector.InputPickable = enabled;
+
+        if (!enabled)
+            ResetHover();
+    }
+    
+    private void HandleMouseEntered()
+    {
+        if (_interactive)
+            AnimateHover(true);
+    }
+
+    private void HandleMouseExited()
+    {
+        if (_interactive)
+            AnimateHover(false);
+    }
+    
+    private void AnimateHover(bool hovered)
+    {
+        if (_hoverTween != null && _hoverTween.IsRunning())
+            _hoverTween.Kill();
+
+        Vector2 targetPosition = _restPosition +
+                                 (hovered ? new Vector2(0, -28) : Vector2.Zero);
+
+        Vector2 targetScale = _restScale *
+                              (hovered ? 1.06f : 1.0f);
+
+        _hoverTween = CreateTween();
+        _hoverTween.SetParallel();
+
+        _hoverTween.TweenProperty(
+                this,
+                "position",
+                targetPosition,
+                0.12f
+            ).SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        _hoverTween.TweenProperty(
+                this,
+                "scale",
+                targetScale,
+                0.12f
+            ).SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+    }
+
+    public void ResetHover()
+    {
+        if (_hoverTween != null && _hoverTween.IsRunning())
+            _hoverTween.Kill();
+
+        Position = _restPosition;
+        Scale = _restScale;
     }
 
     private void HandleInputEvent(Node node, InputEvent inputEvent, long idx)
     {
-        if (inputEvent is InputEventMouseButton && inputEvent.IsReleased())
+        if (!_interactive)
+            return;
+
+        if (inputEvent is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: false })
         {
             EmitSignal(SignalName.CardClicked, this);
         }

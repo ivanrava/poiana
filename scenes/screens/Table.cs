@@ -59,6 +59,10 @@ public partial class Table : Node
 		
 		_playerHand = GetNode<Hand>("PlayerHand");
 		_opponentHand = GetNode<Hand>("OpponentHand");
+
+		_playerHand.SetInteractive(true);
+		_opponentHand.SetInteractive(false);
+		
 		_deck = GetNode<Deck>("Deck");
 		_playedCards = GetNode<PlayedCards>("PlayedCards");
 		

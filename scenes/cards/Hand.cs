@@ -12,6 +12,7 @@ public partial class Hand : Node2D
     private Card _card1, _card2, _card3;
     public List<Card> Cards;
     private Card _cardSelected;
+    private bool _interactive = true;
 
     private float TweenSpeed()
     {
@@ -33,6 +34,15 @@ public partial class Hand : Node2D
         _card1.CardClicked += HandleCardClicked;
         _card2.CardClicked += HandleCardClicked;
         _card3.CardClicked += HandleCardClicked;
+    }
+    
+    public void SetInteractive(bool enabled)
+    {
+	    _interactive = enabled;
+
+	    _card1.SetInteractive(enabled);
+	    _card2.SetInteractive(enabled);
+	    _card3.SetInteractive(enabled);
     }
 
     public async Task SetHand(Card card1, Card card2, Card card3)
@@ -62,7 +72,12 @@ public partial class Hand : Node2D
 
     private void HandleCardClicked(Card card)
     {
+	    if (!_interactive)
+		    return;
+	    
         _cardSelected = card;
+        
+        _cardSelected.ResetHover();
         _cardSelected.Hide();
         
 		Card animableCard = (Card)GD.Load<PackedScene>("res://scenes/cards/Card.tscn").Instantiate();
