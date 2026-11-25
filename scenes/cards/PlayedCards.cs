@@ -11,34 +11,68 @@ public partial class PlayedCards : Node2D
 {
     private PackedScene _cardScene = GD.Load<PackedScene>("res://scenes/cards/Card.tscn");
     private readonly Random _random = new();
-    private Vector2 _otherCardPosition = Vector2.Zero;
     public readonly List<KeyValuePair<Player, CardData>> Cards = new();
     private readonly List<Card> _cardSprites = new();
     
     public async Task PlayCardOnTable(Player player, Card card)
     {
-        const float speed = 0.4f;
-        Cards.Add(new KeyValuePair<Player, CardData>(player, card.CardData));
+        int index = _cardSprites.Count;
+
+        Cards.Add(new KeyValuePair<Player, CardData>(
+            player,
+            card.CardData
+        ));
+
+        _cardSprites.Add(card);
+
+        float side = index == 0 ? -1.0f : 1.0f;
+
+        Vector2 targetPosition = GlobalPosition +
+                                 new Vector2(side * 48.0f, index == 0 ? 4.0f : -4.0f);
+
+        float targetRotation =
+            side * 0.055f +
+            (_random.NextSingle() - 0.5f) * 0.025f;
+
+        card.ZIndex = 20;
+
         Tween tween = CreateTween();
         tween.SetParallel();
-        _cardSprites.Add(card);
-        _otherCardPosition = GetDodgePosition();
-        tween.SetEase(Tween.EaseType.OutIn);
-        tween.TweenProperty(card, "global_position", _otherCardPosition, speed);
-        var rot = Mathf.LerpAngle(card.Rotation, GetDodgeRotation(), 1);
-        tween.TweenProperty(card, "rotation", rot, speed);
+
+        tween.TweenProperty(
+                card,
+                "global_position",
+                targetPosition,
+                0.30f
+            ).SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.Out);
+
+        tween.TweenProperty(
+                card,
+                "global_rotation",
+                targetRotation,
+                0.30f
+            ).SetTrans(Tween.TransitionType.Cubic)
+            .SetEase(Tween.EaseType.Out);
+
+        Vector2 originalScale = card.Scale;
+
+        tween.TweenProperty(
+                card,
+                "scale",
+                originalScale * 1.05f,
+                0.20f
+            ).SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+
+        tween.Chain().TweenProperty(
+            card,
+            "scale",
+            originalScale,
+            0.08f
+        );
+
         await ToSignal(tween, "finished");
-        
-    }
-    
-    private Vector2 GetDodgePosition()
-    {
-        return _otherCardPosition == Vector2.Zero ? GlobalPosition : _otherCardPosition + Vector2.Left * 100;
-    }
-    
-    private float GetDodgeRotation()
-    {
-        return _random.NextSingle() * Mathf.Pi * 2;
     }
     
     public void Clean()
@@ -50,7 +84,6 @@ public partial class PlayedCards : Node2D
         
         _cardSprites.Clear();
         Cards.Clear();
-        _otherCardPosition = Vector2.Zero;
     }
     
     public int Score()
