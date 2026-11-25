@@ -19,25 +19,35 @@ public partial class MainMenu : TextureRect
     public override void _Ready()
     {
         _gameGlobals = GetNode<GameGlobals>("/root/GameGlobals");
-        GetNode<Button>("%Play").ButtonUp += () =>
+        
+        var playButton = GetNode<Button>("%Play");
+        AddButtonFeedback(playButton);
+        playButton.ButtonUp += () =>
         {
             var gameScene = GD.Load<PackedScene>("res://scenes/ui/SelectorMenu.tscn");
             GetTree().ChangeSceneToPacked(gameScene);
         };
-        GetNode<Button>("%Rules").ButtonUp += () =>
+        var rulesButton = GetNode<Button>("%Rules");
+        AddButtonFeedback(rulesButton);
+        rulesButton.ButtonUp += () =>
         {
             var gameScene = GD.Load<PackedScene>("res://scenes/ui/Rules.tscn");
             GetTree().ChangeSceneToPacked(gameScene);
         };
-        GetNode<Button>("%Options").ButtonUp += () =>
+        var optionsButton = GetNode<Button>("%Options");
+        AddButtonFeedback(optionsButton);
+        optionsButton.ButtonUp += () =>
         {
             var optionsScene = GD.Load<PackedScene>("res://scenes/ui/OptionsMenu.tscn");
             GetTree().ChangeSceneToPacked(optionsScene);
         };
-        GetNode<Button>("%Quit").ButtonUp += () =>
+        var quitButton = GetNode<Button>("%Quit");
+        AddButtonFeedback(quitButton);
+        quitButton.ButtonUp += () =>
         {
             GetTree().Quit();
         };
+        
         var languages = GetNode<OptionButton>("%Language");
         SetLanguages(languages);
         languages.ItemSelected += indexPressed =>
@@ -45,6 +55,36 @@ public partial class MainMenu : TextureRect
             var localeCode = _locales[(int)indexPressed].Code;
             TranslationServer.SetLocale(localeCode);
             _gameGlobals.SaveConfig();
+        };
+    }
+    
+    private void AddButtonFeedback(Button button)
+    {
+        button.MouseEntered += () =>
+        {
+            button.PivotOffset = button.Size / 2.0f;
+
+            Tween tween = button.CreateTween();
+
+            tween.TweenProperty(
+                    button,
+                    "scale",
+                    Vector2.One * 1.04f,
+                    0.12f
+                ).SetTrans(Tween.TransitionType.Back)
+                .SetEase(Tween.EaseType.Out);
+        };
+
+        button.MouseExited += () =>
+        {
+            Tween tween = button.CreateTween();
+
+            tween.TweenProperty(
+                button,
+                "scale",
+                Vector2.One,
+                0.12f
+            );
         };
     }
 
