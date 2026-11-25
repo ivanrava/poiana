@@ -13,7 +13,14 @@ android/build/.kotlin/
 
 # Android Gradle project
 android/build/libs/
-android/build/res/
 android/build/src/main/assets/
 android/build/src/instrumented/
 android/build/src/androidTestInstrumented/
+
+# Generated Android resources
+android/build/res/*
+
+# Preserve custom Android themes
+!android/build/res/values/
+android/build/res/values/*
+!android/build/res/values/themes.xml
