@@ -102,13 +102,13 @@ public partial class Table : Node
 		
 		_outcomeWrapper = GetNode<VBoxContainer>("%OutcomeWrapper");
 
-		_turn = 1;
-		
 		if (!_isPlayerTurn)
 		{
 			await OpponentMove();
 		}
 		_playerHand.CardSelected += HandleHandCardSelected;
+		
+		_turn = 1;
 	}
 
 	private void PlayFatality()
@@ -301,7 +301,7 @@ public partial class Table : Node
 				GetTree().ReloadCurrentScene();
 				return;
 			}
-			ResolvePlayedCards();
+			await ResolvePlayedCards();
 			if (_deck.RemainingCards() == 0 && _playerHand.Cards.Count == 0 && !_outcomeWrapper.Visible)
 			{
 				string messageKey;
@@ -326,7 +326,7 @@ public partial class Table : Node
 				
 				if (!_isPlayerTurn)
 				{
-					OpponentMove();
+					await OpponentMove();
 				}
 
 				_playerHand.CardSelected += HandleHandCardSelected;

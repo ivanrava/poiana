@@ -40,8 +40,7 @@ public class OnnxOpponentStrategy : OpponentStrategy
 	
 	public override int ChooseCard(OnnxState state)
 	{
-		var idx = Idx(state);
-		return idx;
+		return Idx(state);
 	}
 
 	public OnnxOpponentStrategy(string modelFilename) : base(modelFilename)
